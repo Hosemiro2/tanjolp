@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { Diamond, Sparkles, Shield, ChevronDown, ArrowRight, Star, Gem, Zap } from "lucide-react";
 import LeadForm from "@/components/LeadForm";
 import Atmosphere from "@/components/Atmosphere";
+import { IJewelViewer } from "@/components/IJewelViewer";
 
 // ─── Scroll hook ──────────────────────────────────────────────────────────────
 function useScrollY() {
@@ -494,97 +495,86 @@ function ProcessoSection() {
 
 // ─── Studio Section ───────────────────────────────────────────────────────────
 function StudioSection() {
-  // Amostras visuais — substitua os caminhos pelas fotos reais de joias TANJŌ
-  // assim que tiver os arquivos em client/public/assets/.
-  const samples = [
-    { src: "/assets/joia-amostra-01.jpg", label: "Anel solitário", style: "tall" },
-    { src: "/assets/joia-amostra-02.jpg", label: "Colar com gema", style: "short" },
-    { src: "/assets/joia-amostra-03.jpg", label: "Brinco pavé", style: "tall" },
+  const projects = [
+    {
+      id: "marquise-01",
+      tag: "PROJETO EXCLUSIVO TANJŌ",
+      name: "Anel Marquise Solitário",
+      material: "Ouro 18k bicolor · diamante marquise central + pavé",
+      images: {
+        frontal: "/portfolio/marquise-01-frontal.jpg",
+        perspective: "/portfolio/marquise-01-perspectiva.jpg",
+      },
+      viewer3d_glb: "https://bee.transfr.one/6a048316-17/model.glb",
+      disclaimer: "Renderização 3D final do estúdio TANJŌ — pronta para fundição",
+    },
   ];
+  const project = projects[0];
 
   return (
-    <section id="studio" className="py-24 md:py-32 bg-[#0a0a0a] border-t border-white/4 relative overflow-hidden">
+    <section id="studio" className="pt-6 lg:pt-8 pb-12 lg:pb-16 bg-[#0a0a0a] border-t border-white/4 relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(181,82,42,0.05) 0%, transparent 60%)" }}
       />
       <div className="container relative z-10">
-        {/* Header */}
+        {/* Header — compacto */}
         <FadeIn>
-          <div className="text-center mb-14 md:mb-20 max-w-3xl mx-auto">
-            <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">Estúdio Virtual</span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-white mt-4 mb-6 leading-tight">
-              Visualize o futuro
-              <br />
+          <div className="text-center mb-8 lg:mb-10 max-w-2xl mx-auto">
+            <span className="text-[#B5522A]/60 text-[10px] tracking-[0.3em] uppercase font-light">Estúdio Virtual</span>
+            <h2 className="text-3xl lg:text-4xl font-extralight text-white mt-3 mb-4 leading-tight">
+              Visualize o futuro{" "}
               <span className="font-serif italic text-[#B5522A]">da sua coleção</span>
             </h2>
-            <p className="text-white/35 font-light text-base md:text-lg leading-relaxed">
+            <p className="text-white/40 font-light text-sm lg:text-base leading-relaxed">
               Converse com a <strong className="text-[#B5522A] font-light">Danya</strong>, nossa Diretora Criativa de
-              Inteligência Artificial. Ela vai entender a sua ideia e gerar conceitos fotorrealistas exclusivos
-              da sua próxima joia em segundos.
+              Inteligência Artificial. Ela vai entender a sua ideia e gerar conceitos fotorrealistas exclusivos da sua próxima joia em segundos.
             </p>
           </div>
         </FadeIn>
 
-        {/* Grid: Amostras + Formulário */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start max-w-6xl mx-auto">
-          {/* Coluna esquerda: amostras (mosaico) — 2/5 no desktop */}
-          <FadeIn delay={0.15} className="lg:col-span-2">
-            <div>
-              <div className="mb-6 hidden lg:block">
-                <span className="text-[#B5522A]/60 text-[9px] tracking-[0.4em] uppercase font-light">Conceitos Recentes</span>
-                <p className="text-white/30 text-xs font-light mt-2 leading-relaxed">
-                  Exemplos de peças desenvolvidas em parceria com nossas marcas clientes.
-                </p>
+        {/* Grid: Projeto + Formulário */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto">
+          {/* Coluna esquerda: projeto exclusivo */}
+          <FadeIn delay={0.15} className="h-full">
+            <div className="flex flex-col h-full">
+              {/* 3D viewer único, proporção controlada */}
+              <div
+                className="aspect-square max-h-[420px] bg-black/30 border border-[#B5522A]/20 rounded overflow-hidden relative"
+                style={{ boxShadow: "inset 0 0 40px 10px rgba(0,0,0,0.3)" }}
+              >
+                <IJewelViewer
+                  modelUrl={project.viewer3d_glb}
+                  poster={project.images.frontal}
+                  style={{ width: "100%", height: "100%" }}
+                />
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                {samples.map((s, i) => (
-                  <div
-                    key={s.label}
-                    className={`relative overflow-hidden group ${
-                      i === 0 ? "col-span-2 aspect-[16/10]" : "aspect-square"
-                    }`}
-                    style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-                  >
-                    <img
-                      src={s.src}
-                      alt={s.label}
-                      onError={(e) => {
-                        // Fallback elegante enquanto as imagens reais não foram subidas
-                        const target = e.currentTarget;
-                        target.style.display = "none";
-                        const parent = target.parentElement;
-                        if (parent && !parent.querySelector(".placeholder-fallback")) {
-                          const div = document.createElement("div");
-                          div.className = "placeholder-fallback absolute inset-0 flex flex-col items-center justify-center bg-[#0d0d0d] gap-2";
-                          div.innerHTML = `
-                            <div class="text-[#B5522A]/25 text-2xl" style="font-family: 'Cormorant Garamond', serif; font-style: italic;">TANJŌ</div>
-                            <span class="text-white/15 text-[8px] tracking-[0.4em] uppercase font-light">Amostra</span>
-                          `;
-                          parent.appendChild(div);
-                        }
-                      }}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute bottom-2 left-3 text-white/45 text-[9px] tracking-[0.25em] uppercase font-light">
-                      {s.label}
-                    </span>
-                  </div>
-                ))}
+
+              {/* Caption compacto */}
+              <div className="mt-4">
+                <h3 className="text-white/90 text-base font-light">{project.name}</h3>
+                <p className="text-white/60 text-xs tracking-wide mt-1">{project.material}</p>
+                <p className="text-white/40 text-[10px] italic mt-2">{project.disclaimer}</p>
               </div>
-              <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-light text-center mt-5">
-                Conceitos desenvolvidos com a Danya AI
-              </p>
+
+              {/* Spacer flexível */}
+              <div className="flex-grow min-h-[16px]" />
+
+              {/* Tag rodapé alinhada com a direita */}
+              <div className="text-center text-[#B5522A]/70 text-[10px] tracking-[0.3em] uppercase font-light pt-3">
+                ● {project.tag}
+              </div>
             </div>
           </FadeIn>
 
-          {/* Coluna direita: formulário — 3/5 no desktop */}
-          <FadeIn delay={0.25} className="lg:col-span-3">
-            <LeadForm />
-            <p className="text-center text-white/15 text-[9px] tracking-[0.4em] uppercase mt-6 font-light">
-              Acesso exclusivo para lojistas e marcas · B2B
-            </p>
+          {/* Coluna direita: formulário */}
+          <FadeIn delay={0.25} className="h-full">
+            <div className="flex flex-col h-full">
+              <LeadForm />
+              <p className="text-center text-white/15 text-[9px] tracking-[0.4em] uppercase mt-6 font-light">
+                Acesso exclusivo para lojistas e marcas · B2B
+              </p>
+            </div>
           </FadeIn>
         </div>
       </div>

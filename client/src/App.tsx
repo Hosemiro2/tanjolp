@@ -10,6 +10,7 @@ import Privacidade from "./pages/Privacidade";
 import AdminLogin from "./pages/AdminLogin";
 import AdminLeads from "./pages/AdminLeads";
 import AdminLeadDetail from "./pages/AdminLeadDetail";
+import { WhatsAppFAB } from "./components/WhatsAppFAB";
 
 function Router() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <TooltipProvider>
           <Toaster theme="dark" />
           <Router />
+          <WhatsAppFAB />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
