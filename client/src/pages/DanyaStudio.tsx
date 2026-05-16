@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { Send, Loader2, ArrowLeft, Sparkles, Diamond } from "lucide-react";
+import { Send, Loader2, ArrowLeft, Sparkles, Diamond, Download } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Message = {
@@ -58,6 +58,53 @@ function TypingDots() {
   );
 }
 
+// ─── Concept Image (watermark + download) ─────────────────────────────────────
+function ConceptImage({ url, index }: { url: string; index: number }) {
+  const handleDownload = async () => {
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = `tanjo-conceito-${String(index + 1).padStart(2, "0")}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error("Download failed", err);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <div className="relative inline-block">
+        <img
+          src={url}
+          alt={`Conceito ${index + 1}`}
+          className="block max-w-full border border-[#B5522A]/20"
+          loading="lazy"
+        />
+        <div
+          aria-hidden
+          className="absolute bottom-2 right-3 text-[10px] tracking-[0.35em] uppercase font-light text-white/40 pointer-events-none select-none"
+          style={{ textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+        >
+          TANJŌ · CONCEITO
+        </div>
+      </div>
+      <button
+        onClick={handleDownload}
+        className="inline-flex items-center gap-1.5 text-[#B5522A]/80 hover:text-[#B5522A] text-[11px] tracking-widest uppercase font-light transition-colors"
+      >
+        <Download className="w-3 h-3" />
+        Baixar conceito
+      </button>
+    </div>
+  );
+}
+
 // ─── Message Bubble ───────────────────────────────────────────────────────────
 function MessageBubble({ msg }: { msg: Message }) {
   const isUser = msg.role === "user";
@@ -101,28 +148,11 @@ function MessageBubble({ msg }: { msg: Message }) {
           </div>
         ) : null}
 
-        {/* Images (no download) */}
+        {/* Images (watermark + download) */}
         {msg.imageUrls && msg.imageUrls.length > 0 && (
           <div className="grid grid-cols-1 gap-3 w-full max-w-sm">
             {msg.imageUrls.map((url, i) => (
-              <div
-                key={i}
-                className="relative overflow-hidden border border-[#B5522A]/20 rounded-sm group"
-                onContextMenu={(e) => e.preventDefault()}
-              >
-                <img
-                  src={url}
-                  alt={`Conceito de joia ${i + 1}`}
-                  className="w-full object-cover no-download select-none"
-                  draggable={false}
-                  style={{ pointerEvents: "none", userSelect: "none" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                  <span className="text-white/60 text-xs tracking-widest uppercase font-light">
-                    Conceito TANJŌ · {i + 1}/3
-                  </span>
-                </div>
-              </div>
+              <ConceptImage key={i} url={url} index={i} />
             ))}
           </div>
         )}

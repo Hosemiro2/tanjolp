@@ -56,13 +56,13 @@ export async function generateImage({ prompt }: { prompt: string }): Promise<{ u
       modelId: ENV.leonardoModelId,
       prompt,
       num_images: 1,
-      width: 1024,
-      height: 1024,
+      width: 1536,
+      height: 1536,
       // Phoenix-friendly defaults: photoreal, fixed quality
       contrast: 3.5,
       styleUUID: "111dc692-d470-4eec-b791-3475abac4c46", // "Cinematic" — good for jewelry
       enhancePrompt: false,
-      ultra: false,
+      ultra: true,
     }),
   })) as CreateGenerationResponse;
 
