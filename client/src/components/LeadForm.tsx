@@ -4,35 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Loader2, ArrowRight, CheckCircle } from "lucide-react";
 
-// ─── CNPJ Validation ──────────────────────────────────────────────────────────
-function validateCNPJ(cnpj: string): boolean {
-  const raw = cnpj.replace(/[^\d]/g, "");
-  if (raw.length !== 14) return false;
-  if (/^(\d)\1+$/.test(raw)) return false;
-
-  const calc = (digits: string, weights: number[]) => {
-    const sum = digits.split("").reduce((acc, d, i) => acc + parseInt(d) * weights[i], 0);
-    const rem = sum % 11;
-    return rem < 2 ? 0 : 11 - rem;
-  };
-
-  const w1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-  const w2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-  const d1 = calc(raw.slice(0, 12), w1);
-  const d2 = calc(raw.slice(0, 13), w2);
-
-  return parseInt(raw[12]) === d1 && parseInt(raw[13]) === d2;
-}
-
-function formatCNPJ(value: string): string {
-  const raw = value.replace(/[^\d]/g, "").slice(0, 14);
-  if (raw.length <= 2) return raw;
-  if (raw.length <= 5) return `${raw.slice(0, 2)}.${raw.slice(2)}`;
-  if (raw.length <= 8) return `${raw.slice(0, 2)}.${raw.slice(2, 5)}.${raw.slice(5)}`;
-  if (raw.length <= 12) return `${raw.slice(0, 2)}.${raw.slice(2, 5)}.${raw.slice(5, 8)}/${raw.slice(8)}`;
-  return `${raw.slice(0, 2)}.${raw.slice(2, 5)}.${raw.slice(5, 8)}/${raw.slice(8, 12)}-${raw.slice(12)}`;
-}
-
+// ─── Phone formatter ─────────────────────────────────────────────────────────
 function formatPhone(value: string): string {
   const raw = value.replace(/[^\d]/g, "").slice(0, 11);
   if (raw.length <= 2) return raw;
@@ -83,14 +55,13 @@ function TanjoInput({
 // ─── Main Form ────────────────────────────────────────────────────────────────
 export default function LeadForm() {
   const [, navigate] = useLocation();
-  const [form, setForm] = useState({ nome: "", email: "", whatsapp: "", cnpj: "", empresa: "" });
+  const [form, setForm] = useState({ nome: "", email: "", whatsapp: "", empresa: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
   const registerMutation = trpc.leads.register.useMutation({
     onSuccess: (data) => {
       setSubmitted(true);
-      // Store session token for chat access
       sessionStorage.setItem("tanjo_session", data.sessionToken);
       sessionStorage.setItem("tanjo_lead_name", form.nome);
       setTimeout(() => navigate("/studio"), 1500);
@@ -102,12 +73,12 @@ export default function LeadForm() {
 
   const validate = () => {
     const errs: Record<string, string> = {};
-    if (!form.nome.trim() || form.nome.trim().length < 3) errs.nome = "Nome deve ter ao menos 3 caracteres.";
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "E-mail inválido.";
-    if (!form.whatsapp.trim() || form.whatsapp.replace(/\D/g, "").length < 10) errs.whatsapp = "WhatsApp inválido.";
-    const cnpjRaw = form.cnpj.replace(/[^\d]/g, "");
-    if (cnpjRaw.length !== 14) errs.cnpj = "CNPJ deve ter 14 dígitos.";
-    else if (!validateCNPJ(form.cnpj)) errs.cnpj = "CNPJ inválido. Verifique o número.";
+    if (!form.nome.trim() || form.nome.trim().length < 3)
+      errs.nome = "Nome deve ter ao menos 3 caracteres.";
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      errs.email = "E-mail inválido.";
+    if (!form.whatsapp.trim() || form.whatsapp.replace(/\D/g, "").length < 10)
+      errs.whatsapp = "WhatsApp inválido.";
     return errs;
   };
 
@@ -120,7 +91,6 @@ export default function LeadForm() {
       nome: form.nome.trim(),
       email: form.email.trim().toLowerCase(),
       whatsapp: form.whatsapp.replace(/\D/g, ""),
-      cnpj: form.cnpj.replace(/[^\d]/g, ""),
       empresa: form.empresa.trim() || undefined,
     });
   };
@@ -136,14 +106,16 @@ export default function LeadForm() {
   }
 
   return (
-    <div className="tanjo-border-glow bg-[#0f0f0f] p-8 md:p-12">
-      {/* Header */}
-      <div className="text-center mb-10">
+    <div className="tanjo-border-glow bg-[#0f0f0f] p-6 sm:p-8 md:p-12">
+      <div className="text-center mb-8 md:mb-10">
         <div className="inline-flex items-center gap-2 text-[#B5522A] text-xs tracking-[0.4em] uppercase font-light mb-4">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#B5522A] animate-pulse" />
+          <div
+            className="w-1.5 h-1.5 rounded-full bg-[#B5522A]"
+            style={{ animation: "tk-pulse 1.4s ease-in-out infinite" }}
+          />
           Acesso ao Estúdio Virtual
         </div>
-        <h3 className="text-white text-2xl font-extralight tracking-wide">
+        <h3 className="text-white text-xl md:text-2xl font-extralight tracking-wide">
           Crie sua conta B2B
         </h3>
         <p className="text-white/30 text-sm font-light mt-2">
@@ -175,21 +147,11 @@ export default function LeadForm() {
           error={errors.whatsapp}
         />
         <TanjoInput
-          label="CNPJ"
-          value={form.cnpj}
-          onChange={(v) => setForm((f) => ({ ...f, cnpj: formatCNPJ(v) }))}
-          placeholder="00.000.000/0001-00"
-          error={errors.cnpj}
-          hint="Obrigatório para acesso B2B"
+          label="Nome da Empresa (opcional)"
+          value={form.empresa}
+          onChange={(v) => setForm((f) => ({ ...f, empresa: v }))}
+          placeholder="Sua marca ou loja"
         />
-        <div className="md:col-span-2">
-          <TanjoInput
-            label="Nome da Empresa (opcional)"
-            value={form.empresa}
-            onChange={(v) => setForm((f) => ({ ...f, empresa: v }))}
-            placeholder="Sua marca ou loja"
-          />
-        </div>
 
         <div className="md:col-span-2 mt-4">
           <button
@@ -200,7 +162,7 @@ export default function LeadForm() {
             {registerMutation.isPending ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                Validando CNPJ...
+                Enviando...
               </>
             ) : (
               <>
@@ -209,6 +171,22 @@ export default function LeadForm() {
               </>
             )}
           </button>
+        </div>
+
+        {/* LGPD — aviso discreto (sem checkbox bloqueante) */}
+        <div className="md:col-span-2">
+          <p className="text-white/25 text-[11px] font-light leading-relaxed text-center">
+            Ao continuar, você concorda com nossa{" "}
+            <a
+              href="/politica-de-privacidade"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#B5522A]/80 hover:text-[#B5522A] underline underline-offset-2 decoration-[#B5522A]/30 hover:decoration-[#B5522A] transition-colors"
+            >
+              Política de Privacidade
+            </a>
+            .
+          </p>
         </div>
       </form>
     </div>

@@ -1,42 +1,51 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, json } from "drizzle-orm/mysql-core";
+import { integer, pgEnum, pgTable, serial, text, timestamp, varchar, jsonb } from "drizzle-orm/pg-core";
 
-export const users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
+// ─── Enums ────────────────────────────────────────────────────────────────────
+export const userRoleEnum = pgEnum("user_role", ["user", "admin"]);
+export const chatRoleEnum = pgEnum("chat_role", ["user", "assistant"]);
+
+// ─── Users ────────────────────────────────────────────────────────────────────
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  role: userRoleEnum("role").default("user").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true })
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+  lastSignedIn: timestamp("lastSignedIn", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-export const leads = mysqlTable("leads", {
-  id: int("id").autoincrement().primaryKey(),
+// ─── Leads ────────────────────────────────────────────────────────────────────
+export const leads = pgTable("leads", {
+  id: serial("id").primaryKey(),
   nome: varchar("nome", { length: 255 }).notNull(),
   email: varchar("email", { length: 320 }).notNull(),
   whatsapp: varchar("whatsapp", { length: 20 }).notNull(),
-  cnpj: varchar("cnpj", { length: 18 }).notNull(),
   empresa: varchar("empresa", { length: 255 }),
   sessionToken: varchar("sessionToken", { length: 64 }).notNull().unique(),
-  imagesGenerated: int("imagesGenerated").default(0).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  imagesGenerated: integer("imagesGenerated").default(0).notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = typeof leads.$inferInsert;
 
-export const chatMessages = mysqlTable("chat_messages", {
-  id: int("id").autoincrement().primaryKey(),
-  leadId: int("leadId").notNull(),
-  role: mysqlEnum("role", ["user", "assistant"]).notNull(),
+// ─── Chat Messages ────────────────────────────────────────────────────────────
+export const chatMessages = pgTable("chat_messages", {
+  id: serial("id").primaryKey(),
+  leadId: integer("leadId").notNull(),
+  role: chatRoleEnum("role").notNull(),
   content: text("content").notNull(),
-  imageUrls: json("imageUrls").$type<string[]>(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  imageUrls: jsonb("imageUrls").$type<string[]>(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type ChatMessage = typeof chatMessages.$inferSelect;

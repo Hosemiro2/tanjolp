@@ -3,54 +3,6 @@ import { appRouter } from "./routers";
 import { COOKIE_NAME } from "../shared/const";
 import type { TrpcContext } from "./_core/context";
 
-// ─── CNPJ Validation (mirrored from routers.ts for testing) ──────────────────
-function validateCNPJ(cnpj: string): boolean {
-  const raw = cnpj.replace(/[^\d]/g, "");
-  if (raw.length !== 14) return false;
-  if (/^(\d)\1+$/.test(raw)) return false;
-  const calc = (digits: string, weights: number[]) => {
-    const sum = digits.split("").reduce((acc, d, i) => acc + parseInt(d) * weights[i], 0);
-    const rem = sum % 11;
-    return rem < 2 ? 0 : 11 - rem;
-  };
-  const w1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-  const w2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-  const d1 = calc(raw.slice(0, 12), w1);
-  const d2 = calc(raw.slice(0, 13), w2);
-  return parseInt(raw[12]) === d1 && parseInt(raw[13]) === d2;
-}
-
-// ─── CNPJ Tests ───────────────────────────────────────────────────────────────
-describe("CNPJ Validation", () => {
-  it("accepts a valid CNPJ (11.222.333/0001-81)", () => {
-    expect(validateCNPJ("11222333000181")).toBe(true);
-  });
-
-  it("accepts a valid CNPJ with formatting", () => {
-    expect(validateCNPJ("11.222.333/0001-81")).toBe(true);
-  });
-
-  it("rejects a CNPJ with all same digits", () => {
-    expect(validateCNPJ("11111111111111")).toBe(false);
-  });
-
-  it("rejects a CNPJ with wrong check digits", () => {
-    expect(validateCNPJ("11222333000182")).toBe(false);
-  });
-
-  it("rejects a CNPJ with wrong length", () => {
-    expect(validateCNPJ("1122233300018")).toBe(false);
-  });
-
-  it("rejects an empty string", () => {
-    expect(validateCNPJ("")).toBe(false);
-  });
-
-  it("rejects a known invalid CNPJ (00.000.000/0000-00)", () => {
-    expect(validateCNPJ("00000000000000")).toBe(false);
-  });
-});
-
 // ─── Auth Logout Test ─────────────────────────────────────────────────────────
 type AuthenticatedUser = NonNullable<TrpcContext["user"]>;
 
@@ -69,6 +21,7 @@ function createAuthContext(): { ctx: TrpcContext; clearedCookies: { name: string
   };
   const ctx: TrpcContext = {
     user,
+    isAdmin: false,
     req: { protocol: "https", headers: {} } as TrpcContext["req"],
     res: {
       clearCookie: (name: string, options: Record<string, unknown>) => {
@@ -91,22 +44,47 @@ describe("auth.logout", () => {
   });
 });
 
-// ─── Leads Register — CNPJ rejection ─────────────────────────────────────────
-describe("leads.register", () => {
-  it("rejects registration with invalid CNPJ", async () => {
-    const ctx: TrpcContext = {
+// ─── Leads Register — Input validation ───────────────────────────────────────
+describe("leads.register input validation", () => {
+  function makePublicCtx(): TrpcContext {
+    return {
       user: null,
+      isAdmin: false,
       req: { protocol: "https", headers: {} } as TrpcContext["req"],
       res: { clearCookie: () => {} } as TrpcContext["res"],
     };
-    const caller = appRouter.createCaller(ctx);
+  }
+
+  it("rejects registration when name is too short", async () => {
+    const caller = appRouter.createCaller(makePublicCtx());
+    await expect(
+      caller.leads.register({
+        nome: "Jo",
+        email: "teste@marca.com.br",
+        whatsapp: "11999999999",
+      })
+    ).rejects.toThrow();
+  });
+
+  it("rejects registration with invalid email", async () => {
+    const caller = appRouter.createCaller(makePublicCtx());
+    await expect(
+      caller.leads.register({
+        nome: "Teste Lead",
+        email: "not-an-email",
+        whatsapp: "11999999999",
+      })
+    ).rejects.toThrow();
+  });
+
+  it("rejects registration when whatsapp is too short", async () => {
+    const caller = appRouter.createCaller(makePublicCtx());
     await expect(
       caller.leads.register({
         nome: "Teste Lead",
         email: "teste@marca.com.br",
-        whatsapp: "11999999999",
-        cnpj: "00000000000000", // invalid
+        whatsapp: "1199",
       })
-    ).rejects.toThrow("CNPJ inválido");
+    ).rejects.toThrow();
   });
 });

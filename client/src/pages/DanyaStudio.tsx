@@ -353,7 +353,10 @@ export default function DanyaStudio() {
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#B5522A] animate-pulse" />
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-[#B5522A]"
+                style={{ animation: "tk-pulse 1.4s ease-in-out infinite" }}
+              />
               <span className="text-white/40 text-xs tracking-widest uppercase font-light">Danya AI · Online</span>
             </div>
             <ImageCounter count={imagesGenerated} />
@@ -399,7 +402,7 @@ export default function DanyaStudio() {
               <p className="text-white/50 text-sm font-light">
                 Limite de renders atingido.{" "}
                 <a
-                  href="https://wa.me/5511999999999"
+                  href="https://wa.me/5511964220246"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#B5522A] hover:underline"

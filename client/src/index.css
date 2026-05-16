@@ -161,6 +161,51 @@
 }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
+/* ─── Animations from Claude Design (tk-*) ─────────────────────────────────── */
+/* Fade-in + rise — used by Hero CTAs, badges, stats */
+@keyframes tk-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Particle drift in Hero background */
+@keyframes tk-float {
+  0%, 100% { transform: translateY(0px); opacity: 0.18; }
+  50%      { transform: translateY(-18px); opacity: 0.32; }
+}
+
+/* Hero chevron bounce */
+@keyframes tk-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+/* Pulse on the status dot ("Acesso ao Estúdio Virtual" / "Danya AI · Online") */
+@keyframes tk-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Chat typing indicator dots */
+@keyframes tk-typing {
+  0%, 80%, 100% { transform: translateY(0);   opacity: 0.4; }
+  40%           { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Wireframe gem center pulse (Atmosphere component) */
+@keyframes tk-corepulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.4); }
+}
+
+/* Data rails — measurement ticks falling on the page sides */
+@keyframes tk-tick-fall {
+  0%   { transform: translateY(-20px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
 /* Flex min-size fix */
 .flex { min-width: 0; min-height: 0; }
 

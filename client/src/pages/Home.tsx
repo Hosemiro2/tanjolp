@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { Diamond, Sparkles, Shield, ChevronDown, ArrowRight, Star, Gem, Zap } from "lucide-react";
 import LeadForm from "@/components/LeadForm";
+import Atmosphere from "@/components/Atmosphere";
 
 // ─── Scroll hook ──────────────────────────────────────────────────────────────
 function useScrollY() {
@@ -141,14 +142,26 @@ function Navbar() {
         scrolled ? "bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
       }`}
     >
-      <div className="relative h-20 flex items-center px-6 md:px-12">
+      <div className="relative h-16 md:h-20 flex items-center px-5 md:px-12">
         {/* Logo icon — left */}
-        <div className="z-10 flex-shrink-0">
+        <div className="z-10 flex-shrink-0 flex items-center gap-3">
           <img
             src="/assets/LOGO01.png"
             alt="TANJŌ"
-            style={{ height: 44, width: "auto", objectFit: "contain" }}
+            className="h-9 md:h-11 w-auto object-contain"
           />
+          {/* Wordmark — visible only on mobile (desktop has its own centered version) */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="md:hidden opacity-90 hover:opacity-100 transition-opacity"
+            aria-label="Voltar ao topo"
+          >
+            <img
+              src="/assets/MARCA01.png"
+              alt="TANJŌ Jewelry"
+              className="h-7 w-auto object-contain"
+            />
+          </button>
         </div>
 
         {/* Desktop nav — centered */}
@@ -299,7 +312,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.4 }}
-          className="mt-28 grid grid-cols-3 gap-8 max-w-sm mx-auto"
+          className="mt-20 md:mt-28 grid grid-cols-3 gap-4 sm:gap-8 max-w-md mx-auto px-2"
         >
           {[
             { value: "200+", label: "Clientes B2B" },
@@ -307,8 +320,8 @@ function HeroSection({ scrollY }: { scrollY: number }) {
             { value: "5 anos", label: "De Excelência" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="text-[#B5522A] text-xl font-light tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>{stat.value}</div>
-              <div className="text-white/20 text-[9px] tracking-[0.3em] uppercase mt-1.5">{stat.label}</div>
+              <div className="text-[#B5522A] text-base sm:text-xl font-light tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>{stat.value}</div>
+              <div className="text-white/20 text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-1.5">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -481,32 +494,95 @@ function ProcessoSection() {
 
 // ─── Studio Section ───────────────────────────────────────────────────────────
 function StudioSection() {
+  // Amostras visuais — substitua os caminhos pelas fotos reais de joias TANJŌ
+  // assim que tiver os arquivos em client/public/assets/.
+  const samples = [
+    { src: "/assets/joia-amostra-01.jpg", label: "Anel solitário", style: "tall" },
+    { src: "/assets/joia-amostra-02.jpg", label: "Colar com gema", style: "short" },
+    { src: "/assets/joia-amostra-03.jpg", label: "Brinco pavé", style: "tall" },
+  ];
+
   return (
-    <section id="studio" className="py-32 bg-[#0a0a0a] border-t border-white/4 relative overflow-hidden">
+    <section id="studio" className="py-24 md:py-32 bg-[#0a0a0a] border-t border-white/4 relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(181,82,42,0.05) 0%, transparent 60%)" }}
       />
       <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">Estúdio Virtual</span>
-              <h2 className="text-4xl md:text-6xl font-extralight text-white mt-4 mb-6 leading-tight">
-                Visualize o futuro
-                <br />
-                <span className="font-serif italic text-[#B5522A]">da sua coleção</span>
-              </h2>
-              <p className="text-white/35 font-light text-lg max-w-2xl mx-auto leading-relaxed">
-                Converse com a <strong className="text-[#B5522A] font-light">Danya</strong>, nossa Diretora Criativa de
-                Inteligência Artificial. Ela vai entender a sua ideia e gerar conceitos fotorrealistas exclusivos da sua
-                próxima joia em segundos.
+        {/* Header */}
+        <FadeIn>
+          <div className="text-center mb-14 md:mb-20 max-w-3xl mx-auto">
+            <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">Estúdio Virtual</span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-white mt-4 mb-6 leading-tight">
+              Visualize o futuro
+              <br />
+              <span className="font-serif italic text-[#B5522A]">da sua coleção</span>
+            </h2>
+            <p className="text-white/35 font-light text-base md:text-lg leading-relaxed">
+              Converse com a <strong className="text-[#B5522A] font-light">Danya</strong>, nossa Diretora Criativa de
+              Inteligência Artificial. Ela vai entender a sua ideia e gerar conceitos fotorrealistas exclusivos
+              da sua próxima joia em segundos.
+            </p>
+          </div>
+        </FadeIn>
+
+        {/* Grid: Amostras + Formulário */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start max-w-6xl mx-auto">
+          {/* Coluna esquerda: amostras (mosaico) — 2/5 no desktop */}
+          <FadeIn delay={0.15} className="lg:col-span-2">
+            <div>
+              <div className="mb-6 hidden lg:block">
+                <span className="text-[#B5522A]/60 text-[9px] tracking-[0.4em] uppercase font-light">Conceitos Recentes</span>
+                <p className="text-white/30 text-xs font-light mt-2 leading-relaxed">
+                  Exemplos de peças desenvolvidas em parceria com nossas marcas clientes.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {samples.map((s, i) => (
+                  <div
+                    key={s.label}
+                    className={`relative overflow-hidden group ${
+                      i === 0 ? "col-span-2 aspect-[16/10]" : "aspect-square"
+                    }`}
+                    style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+                  >
+                    <img
+                      src={s.src}
+                      alt={s.label}
+                      onError={(e) => {
+                        // Fallback elegante enquanto as imagens reais não foram subidas
+                        const target = e.currentTarget;
+                        target.style.display = "none";
+                        const parent = target.parentElement;
+                        if (parent && !parent.querySelector(".placeholder-fallback")) {
+                          const div = document.createElement("div");
+                          div.className = "placeholder-fallback absolute inset-0 flex flex-col items-center justify-center bg-[#0d0d0d] gap-2";
+                          div.innerHTML = `
+                            <div class="text-[#B5522A]/25 text-2xl" style="font-family: 'Cormorant Garamond', serif; font-style: italic;">TANJŌ</div>
+                            <span class="text-white/15 text-[8px] tracking-[0.4em] uppercase font-light">Amostra</span>
+                          `;
+                          parent.appendChild(div);
+                        }
+                      }}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-2 left-3 text-white/45 text-[9px] tracking-[0.25em] uppercase font-light">
+                      {s.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-light text-center mt-5">
+                Conceitos desenvolvidos com a Danya AI
               </p>
             </div>
           </FadeIn>
-          <FadeIn delay={0.2}><LeadForm /></FadeIn>
-          <FadeIn delay={0.3}>
-            <p className="text-center text-white/15 text-[9px] tracking-[0.4em] uppercase mt-8 font-light">
+
+          {/* Coluna direita: formulário — 3/5 no desktop */}
+          <FadeIn delay={0.25} className="lg:col-span-3">
+            <LeadForm />
+            <p className="text-center text-white/15 text-[9px] tracking-[0.4em] uppercase mt-6 font-light">
               Acesso exclusivo para lojistas e marcas · B2B
             </p>
           </FadeIn>
@@ -550,7 +626,7 @@ function Footer() {
           <div>
             <h4 className="text-white/30 text-[9px] tracking-[0.4em] uppercase font-light mb-6">Contato</h4>
             <div className="flex flex-col gap-3 text-white/25 text-sm font-light">
-              <span>comercial@tanjo.com.br</span>
+              <span>comercial@tanjoo.com.br</span>
               <span>São Paulo — SP, Brasil</span>
               <div className="flex gap-4 mt-2">
                 <a href="https://instagram.com/tanjojewel" target="_blank" rel="noopener noreferrer" className="text-[#B5522A]/70 hover:text-[#B5522A] transition-colors text-[10px] tracking-widest uppercase">
@@ -562,7 +638,15 @@ function Footer() {
         </div>
         <div className="border-t border-white/4 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <span className="text-white/15 text-xs font-light tracking-wide">© 2026 Tanjō Jewelry. Todos os direitos reservados.</span>
-          <span className="text-white/8 text-xs font-light">Alta Joalheria B2B · São Paulo</span>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
+            <a
+              href="/politica-de-privacidade"
+              className="text-white/25 hover:text-white/50 text-xs font-light tracking-wide transition-colors"
+            >
+              Política de Privacidade
+            </a>
+            <span className="text-white/8 text-xs font-light">Alta Joalheria B2B · São Paulo</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -574,6 +658,7 @@ export default function Home() {
   const scrollY = useScrollY();
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
+      <Atmosphere />
       <Navbar />
       <HeroSection scrollY={scrollY} />
       <PilaresSection />

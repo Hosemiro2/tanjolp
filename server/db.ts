@@ -1,16 +1,24 @@
-import { eq, desc } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { eq, desc, sql } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import { InsertUser, users, leads, chatMessages, InsertLead, InsertChatMessage } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
-let _db: ReturnType<typeof drizzle> | null = null;
+const sqlCount = () => sql<number>`count(*)`;
 
-export async function getDb() {
+type DrizzleDb = ReturnType<typeof drizzle>;
+
+let _pool: Pool | null = null;
+let _db: DrizzleDb | null = null;
+
+export async function getDb(): Promise<DrizzleDb | null> {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      _db = drizzle(_pool);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
+      _pool = null;
       _db = null;
     }
   }
@@ -41,7 +49,10 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     // Note: to set admin role, update the database directly
     if (!values.lastSignedIn) values.lastSignedIn = new Date();
     if (Object.keys(updateSet).length === 0) updateSet.lastSignedIn = new Date();
-    await db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet });
+    await db
+      .insert(users)
+      .values(values)
+      .onConflictDoUpdate({ target: users.openId, set: updateSet });
   } catch (error) {
     console.error("[Database] Failed to upsert user:", error);
     throw error;
@@ -59,9 +70,9 @@ export async function getUserByOpenId(openId: string) {
 export async function createLead(data: InsertLead) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  await db.insert(leads).values(data);
-  const result = await db.select().from(leads).where(eq(leads.sessionToken, data.sessionToken!)).limit(1);
-  return result[0];
+  // Postgres supports RETURNING — single round trip
+  const inserted = await db.insert(leads).values(data).returning();
+  return inserted[0];
 }
 
 export async function getLeadBySessionToken(sessionToken: string) {
@@ -78,6 +89,29 @@ export async function incrementLeadImages(leadId: number) {
   if (lead[0]) {
     await db.update(leads).set({ imagesGenerated: lead[0].imagesGenerated + 1 }).where(eq(leads.id, leadId));
   }
+}
+
+// ─── Admin Panel queries ──────────────────────────────────────────────────────
+export async function listLeads({ page, pageSize }: { page: number; pageSize: number }) {
+  const db = await getDb();
+  if (!db) return { rows: [], total: 0 };
+  const offset = Math.max(0, (page - 1) * pageSize);
+  const rows = await db
+    .select()
+    .from(leads)
+    .orderBy(desc(leads.createdAt))
+    .limit(pageSize)
+    .offset(offset);
+  const totalResult = await db.select({ count: sqlCount() }).from(leads);
+  const total = Number(totalResult[0]?.count ?? 0);
+  return { rows, total };
+}
+
+export async function getLeadById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(leads).where(eq(leads.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
 }
 
 // ─── Chat Messages ────────────────────────────────────────────────────────────
