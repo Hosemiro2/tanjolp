@@ -167,7 +167,7 @@ function ImageCounter({ count }: { count: number }) {
     <div className="flex items-center gap-2">
       <span className="text-white/30 text-xs tracking-widest uppercase font-light">Renders</span>
       <div className="flex gap-1.5">
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -176,7 +176,7 @@ function ImageCounter({ count }: { count: number }) {
           />
         ))}
       </div>
-      <span className="text-white/20 text-xs font-light">{count}/3</span>
+      <span className="text-white/20 text-xs font-light">{count}/4</span>
     </div>
   );
 }
@@ -260,7 +260,7 @@ export default function DanyaStudio() {
       setMessages((prev) => [...prev, assistantMsg]);
 
       // If image prompt detected, generate images
-      if (data.imagePrompt && imagesGenerated < 3) {
+      if (data.imagePrompt && imagesGenerated < 4) {
         setPendingImagePrompt(data.imagePrompt);
         await generateImages(data.imagePrompt);
       }
@@ -289,7 +289,7 @@ export default function DanyaStudio() {
       ]);
 
       // After images, trigger closing message if limit reached
-      if (data.imagesGenerated >= 3) {
+      if (data.imagesGenerated >= 4) {
         setTimeout(() => {
           setMessages((prev) => [
             ...prev,
@@ -297,7 +297,7 @@ export default function DanyaStudio() {
               id: nanoid(),
               role: "assistant",
               content:
-                "Você utilizou os 3 conceitos disponíveis nesta sessão. Gostou do que viu? Posso encaminhar esses designs para a nossa equipe comercial formular um pré-orçamento de produção exclusivo para a sua marca. Deseja solicitar o orçamento oficial?",
+                "Você utilizou os 4 renders disponíveis nesta sessão (1 base + 3 refinamentos). Gostou do que viu? Posso encaminhar esses designs para a nossa equipe comercial formular um pré-orçamento de produção exclusivo para a sua marca. Deseja solicitar o orçamento oficial?",
             },
           ]);
         }, 1000);
@@ -423,7 +423,7 @@ export default function DanyaStudio() {
 
         {/* Input Area */}
         <div className="mt-8 sticky bottom-0 pb-4">
-          {imagesGenerated >= 3 && (
+          {imagesGenerated >= 4 && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

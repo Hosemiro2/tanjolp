@@ -124,7 +124,7 @@ export default function AdminLeads() {
                     <td className="px-4 py-4 text-center">
                       <span className="inline-flex items-center gap-1.5 text-[#B5522A]/80 text-xs font-light">
                         <ImageIcon className="w-3 h-3" />
-                        {lead.imagesGenerated}/3
+                        {lead.imagesGenerated}/4
                       </span>
                     </td>
                     <td className="px-4 py-4 text-right">

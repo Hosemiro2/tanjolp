@@ -10,7 +10,7 @@ export function WhatsAppFAB() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar pelo WhatsApp"
-      className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 bg-[#B5522A] hover:bg-[#9a4523] text-white rounded-full shadow-2xl shadow-black/40 transition-all duration-200 hover:scale-105 hover:shadow-[#B5522A]/30 px-4 py-3"
+      className="fixed bottom-6 max-md:bottom-8 right-6 max-md:right-5 z-50 group flex items-center gap-3 bg-[#B5522A] hover:bg-[#9a4523] text-white rounded-full shadow-2xl shadow-black/40 transition-all duration-200 hover:scale-105 hover:shadow-[#B5522A]/30 px-4 py-3 max-md:p-3 max-md:opacity-90 hover:opacity-100"
     >
       <svg
         viewBox="0 0 24 24"

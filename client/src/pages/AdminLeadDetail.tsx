@@ -107,7 +107,7 @@ export default function AdminLeadDetail() {
           </div>
           <div className="mt-6 pt-6 border-t border-white/5 flex items-center gap-2 text-[#B5522A]/80 text-sm font-light">
             <Diamond className="w-3.5 h-3.5" />
-            {lead.imagesGenerated} de 3 conceitos gerados
+            {lead.imagesGenerated} de 4 renders gerados
           </div>
         </section>
 

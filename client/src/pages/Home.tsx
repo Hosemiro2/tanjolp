@@ -258,7 +258,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
           transition={{ duration: 1, delay: 0.3 }}
           className="mb-8"
         >
-          <span className="text-[#B5522A]/70 text-[10px] tracking-[0.5em] font-light uppercase border border-[#B5522A]/20 px-5 py-2">
+          <span className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.5em] font-light uppercase border border-[#B5522A]/20 max-md:border-[#B5522A]/45 px-5 py-2">
             Alta Joalheria B2B · São Paulo
           </span>
         </motion.div>
@@ -282,7 +282,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="text-white/35 text-lg font-light tracking-wide max-w-xl mx-auto mb-14"
+          className="text-white/35 max-md:text-white/65 text-lg font-light tracking-wide max-w-xl mx-auto mb-14"
         >
           Soluções completas em alta joalheria para marcas e designers que buscam
           qualidade, precisão e sofisticação B2B.
@@ -303,7 +303,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
           </button>
           <button
             onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
-            className="border border-white/12 hover:border-white/30 text-white/40 hover:text-white/80 px-12 py-4 text-[11px] tracking-[0.3em] font-light uppercase transition-all duration-300"
+            className="border border-white/12 max-md:border-white/25 hover:border-white/30 text-white/40 max-md:text-white/70 hover:text-white/80 px-12 py-4 text-[11px] tracking-[0.3em] font-light uppercase transition-all duration-300"
           >
             Conheça a Fábrica
           </button>
@@ -322,7 +322,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-[#B5522A] text-base sm:text-xl font-light tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>{stat.value}</div>
-              <div className="text-white/20 text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-1.5">{stat.label}</div>
+              <div className="text-white/20 max-md:text-white/65 text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-1.5">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -357,11 +357,11 @@ function PilaresSection() {
           {pilares.map((p, i) => (
             <FadeIn key={p.title} delay={i * 0.1}>
               <div className="bg-[#0a0a0a] p-10 text-center group hover:bg-[#0e0e0e] transition-colors duration-500">
-                <div className="text-[#B5522A]/70 mb-6 flex justify-center group-hover:text-[#B5522A] group-hover:scale-110 transition-all duration-300">
+                <div className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 mb-6 flex justify-center group-hover:text-[#B5522A] group-hover:scale-110 transition-all duration-300">
                   {p.icon}
                 </div>
-                <h3 className="text-white/60 text-[10px] tracking-[0.35em] uppercase font-light mb-4">{p.title}</h3>
-                <p className="text-white/30 text-sm font-light leading-relaxed">{p.desc}</p>
+                <h3 className="text-white/60 max-md:text-white/85 text-[10px] tracking-[0.35em] uppercase font-light mb-4">{p.title}</h3>
+                <p className="text-white/30 max-md:text-white/72 text-sm font-light leading-relaxed">{p.desc}</p>
               </div>
             </FadeIn>
           ))}
@@ -379,18 +379,18 @@ function SobreSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <FadeIn>
             <div>
-              <span className="text-[#B5522A]/70 text-[10px] tracking-[0.4em] uppercase font-light">Sobre a TANJŌ</span>
+              <span className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.4em] uppercase font-light">Sobre a TANJŌ</span>
               <h2 className="text-4xl md:text-5xl font-extralight text-white mt-4 mb-8 leading-tight">
                 Tradição, tecnologia
                 <br />
-                <span className="font-serif italic text-white/50">e paixão por joias</span>
+                <span className="font-serif italic text-white/50 max-md:text-white/75">e paixão por joias</span>
               </h2>
-              <p className="text-white/40 font-light leading-relaxed mb-6 text-[15px]">
+              <p className="text-white/40 max-md:text-white/72 font-light leading-relaxed mb-6 text-[15px]">
                 A Tanjō Jewelry é uma fábrica especializada na produção de joias em ouro 18k, com foco em marcas que
                 valorizam qualidade, design e confiança. Fundada em São Paulo, unimos o melhor da ourivesaria
                 tradicional com tecnologia avançada para entregar peças que encantam e fortalecem marcas.
               </p>
-              <p className="text-white/40 font-light leading-relaxed mb-10 text-[15px]">
+              <p className="text-white/40 max-md:text-white/72 font-light leading-relaxed mb-10 text-[15px]">
                 Com mais de 200 clientes B2B em todo o Brasil, somos parceiros estratégicos de lojas e designers que
                 desejam lançar suas próprias coleções com o padrão de excelência de uma maison criativa.
               </p>
@@ -420,10 +420,10 @@ function SobreSection() {
                   <img
                     src={item.src}
                     alt={item.label}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    className="w-full h-full object-cover [@media(hover:hover)_and_(pointer:fine)]:grayscale [@media(hover:hover)_and_(pointer:fine)]:group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-3 text-white/40 text-[9px] tracking-[0.3em] uppercase font-light">{item.label}</span>
+                  <span className="absolute bottom-3 left-3 text-white/40 max-md:text-white/80 text-[9px] tracking-[0.3em] uppercase font-light">{item.label}</span>
                 </div>
               ))}
             </div>
@@ -448,7 +448,7 @@ function ProcessoSection() {
       <div className="container">
         <FadeIn>
           <div className="text-center mb-20">
-            <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">O Processo</span>
+            <span className="text-[#B5522A]/60 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.4em] uppercase font-light">O Processo</span>
             <h2 className="text-4xl md:text-5xl font-extralight text-white mt-4 leading-tight">
               Da ideia à
               <span className="font-serif italic text-[#B5522A]"> joia perfeita</span>
@@ -468,21 +468,21 @@ function ProcessoSection() {
                   >
                     {step.img ? (
                       <>
-                        <img src={step.img} alt={step.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                        <img src={step.img} alt={step.title} className="w-full h-full object-cover [@media(hover:hover)_and_(pointer:fine)]:grayscale [@media(hover:hover)_and_(pointer:fine)]:group-hover:grayscale-0 transition-all duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       </>
                     ) : (
                       <div className="w-full h-full bg-[#0d0d0d] flex flex-col items-center justify-center gap-3">
                         <div className="text-[#B5522A]/25">{step.icon}</div>
-                        <span className="text-white/15 text-[9px] tracking-[0.4em] uppercase font-light">Em breve</span>
+                        <span className="text-white/15 max-md:text-white/55 text-[9px] tracking-[0.4em] uppercase font-light">Em breve</span>
                       </div>
                     )}
-                    <div className="absolute top-3 left-3 w-8 h-8 rounded-full border border-[#B5522A]/30 flex items-center justify-center bg-black/60">
-                      <span className="text-[#B5522A]/80 text-[11px] font-extralight" style={{ fontFamily: "'Cinzel', serif" }}>{step.num}</span>
+                    <div className="absolute top-3 left-3 w-8 h-8 rounded-full border border-[#B5522A]/30 max-md:border-[#B5522A]/55 flex items-center justify-center bg-black/60 max-md:bg-black/80">
+                      <span className="text-[#B5522A]/80 max-md:text-[#B5522A] text-[11px] font-extralight" style={{ fontFamily: "'Cinzel', serif" }}>{step.num}</span>
                     </div>
                   </div>
-                  <h3 className="text-white/60 text-[10px] tracking-[0.25em] uppercase font-light mb-3">{step.title}</h3>
-                  <p className="text-white/30 text-sm font-light leading-relaxed">{step.desc}</p>
+                  <h3 className="text-white/60 max-md:text-white/85 text-[10px] tracking-[0.25em] uppercase font-light mb-3">{step.title}</h3>
+                  <p className="text-white/30 max-md:text-white/72 text-sm font-light leading-relaxed">{step.desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -498,7 +498,7 @@ function StudioSection() {
   const projects = [
     {
       id: "marquise-01",
-      tag: "PROJETO EXCLUSIVO TANJŌ",
+      tag: "Projeto Real · Design 3D Tanjō",
       name: "Anel Marquise Solitário",
       material: "Ouro 18k bicolor · diamante marquise central + pavé",
       images: {
@@ -506,7 +506,7 @@ function StudioSection() {
         perspective: "/portfolio/marquise-01-perspectiva.jpg",
       },
       viewer3d_glb: "https://bee.transfr.one/6a048316-17/model.glb",
-      disclaimer: "Renderização 3D final do estúdio TANJŌ — pronta para fundição",
+      disclaimer: "Peça real · modelada pela equipe de design 3D TANJŌ · pronta para fundição em ouro 18k",
     },
   ];
   const project = projects[0];
@@ -521,12 +521,12 @@ function StudioSection() {
         {/* Header — compacto */}
         <FadeIn>
           <div className="text-center mb-8 lg:mb-10 max-w-2xl mx-auto">
-            <span className="text-[#B5522A]/60 text-[10px] tracking-[0.3em] uppercase font-light">Estúdio Virtual</span>
+            <span className="text-[#B5522A]/60 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.3em] uppercase font-light">Estúdio Virtual</span>
             <h2 className="text-3xl lg:text-4xl font-extralight text-white mt-3 mb-4 leading-tight">
               Visualize o futuro{" "}
               <span className="font-serif italic text-[#B5522A]">da sua coleção</span>
             </h2>
-            <p className="text-white/40 font-light text-sm lg:text-base leading-relaxed">
+            <p className="text-white/40 max-md:text-white/72 font-light text-sm lg:text-base leading-relaxed">
               Converse com a <strong className="text-[#B5522A] font-light">Danya</strong>, nossa Diretora Criativa de
               Inteligência Artificial. Ela vai entender a sua ideia e gerar conceitos fotorrealistas exclusivos da sua próxima joia em segundos.
             </p>
@@ -540,9 +540,14 @@ function StudioSection() {
             <div className="flex flex-col h-full">
               {/* 3D viewer único, proporção controlada */}
               <div
-                className="aspect-square max-h-[420px] bg-black/30 border border-[#B5522A]/20 rounded overflow-hidden relative"
+                className="aspect-square max-h-[420px] bg-black/30 max-md:bg-black/55 border border-[#B5522A]/20 max-md:border-[#B5522A]/45 rounded overflow-hidden relative"
                 style={{ boxShadow: "inset 0 0 40px 10px rgba(0,0,0,0.3)" }}
               >
+                <div className="absolute top-3 left-3 z-20 px-3 py-1.5 rounded-sm bg-black/70 border border-[#B5522A]/40 backdrop-blur-sm pointer-events-none">
+                  <span className="text-[10px] tracking-[0.25em] uppercase font-light text-[#B5522A]/90">
+                    ● Projeto Real · Design 3D Tanjō
+                  </span>
+                </div>
                 <IJewelViewer
                   modelUrl={project.viewer3d_glb}
                   poster={project.images.frontal}
@@ -553,15 +558,15 @@ function StudioSection() {
               {/* Caption compacto */}
               <div className="mt-4">
                 <h3 className="text-white/90 text-base font-light">{project.name}</h3>
-                <p className="text-white/60 text-xs tracking-wide mt-1">{project.material}</p>
-                <p className="text-white/40 text-[10px] italic mt-2">{project.disclaimer}</p>
+                <p className="text-white/60 max-md:text-white/80 text-xs tracking-wide mt-1">{project.material}</p>
+                <p className="text-white/45 max-md:text-white/72 text-[11px] italic mt-2 leading-relaxed">{project.disclaimer}</p>
               </div>
 
               {/* Spacer flexível */}
               <div className="flex-grow min-h-[16px]" />
 
               {/* Tag rodapé alinhada com a direita */}
-              <div className="text-center text-[#B5522A]/70 text-[10px] tracking-[0.3em] uppercase font-light pt-3">
+              <div className="text-center text-[#B5522A]/70 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.3em] uppercase font-light pt-3">
                 ● {project.tag}
               </div>
             </div>
@@ -571,7 +576,7 @@ function StudioSection() {
           <FadeIn delay={0.25} className="h-full">
             <div className="flex flex-col h-full">
               <LeadForm />
-              <p className="text-center text-white/15 text-[9px] tracking-[0.4em] uppercase mt-6 font-light">
+              <p className="text-center text-white/15 max-md:text-white/60 text-[9px] tracking-[0.4em] uppercase mt-6 font-light">
                 Acesso exclusivo para lojistas e marcas · B2B
               </p>
             </div>
@@ -594,12 +599,12 @@ function Footer() {
               alt="TANJŌ Jewelry"
               style={{ height: 88, width: "auto", objectFit: "contain" }}
             />
-            <p className="text-white/25 text-sm font-light leading-relaxed mt-6 max-w-xs">
+            <p className="text-white/25 max-md:text-white/70 text-sm font-light leading-relaxed mt-6 max-w-xs">
               Fabricação de joias em ouro 18k com excelência, precisão e compromisso com o sucesso da sua marca.
             </p>
           </div>
           <div>
-            <h4 className="text-white/30 text-[9px] tracking-[0.4em] uppercase font-light mb-6">Navegação</h4>
+            <h4 className="text-white/30 max-md:text-white/70 text-[9px] tracking-[0.4em] uppercase font-light mb-6">Navegação</h4>
             <div className="flex flex-col gap-3">
               {[
                 { label: "A Fábrica", id: "sobre" },
@@ -607,19 +612,19 @@ function Footer() {
                 { label: "Qualidade", id: "pilares" },
                 { label: "Estúdio IA", id: "studio" },
               ].map((item) => (
-                <button key={item.id} onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" })} className="text-white/25 text-sm font-light hover:text-white/50 cursor-pointer transition-colors text-left">
+                <button key={item.id} onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" })} className="text-white/25 max-md:text-white/75 text-sm font-light hover:text-white/50 cursor-pointer transition-colors text-left">
                   {item.label}
                 </button>
               ))}
             </div>
           </div>
           <div>
-            <h4 className="text-white/30 text-[9px] tracking-[0.4em] uppercase font-light mb-6">Contato</h4>
-            <div className="flex flex-col gap-3 text-white/25 text-sm font-light">
+            <h4 className="text-white/30 max-md:text-white/70 text-[9px] tracking-[0.4em] uppercase font-light mb-6">Contato</h4>
+            <div className="flex flex-col gap-3 text-white/25 max-md:text-white/75 text-sm font-light">
               <span>comercial@tanjoo.com.br</span>
               <span>São Paulo — SP, Brasil</span>
               <div className="flex gap-4 mt-2">
-                <a href="https://instagram.com/tanjojewel" target="_blank" rel="noopener noreferrer" className="text-[#B5522A]/70 hover:text-[#B5522A] transition-colors text-[10px] tracking-widest uppercase">
+                <a href="https://instagram.com/tanjojewel" target="_blank" rel="noopener noreferrer" className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 hover:text-[#B5522A] transition-colors text-[10px] tracking-widest uppercase">
                   Instagram
                 </a>
               </div>
@@ -627,15 +632,15 @@ function Footer() {
           </div>
         </div>
         <div className="border-t border-white/4 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <span className="text-white/15 text-xs font-light tracking-wide">© 2026 Tanjō Jewelry. Todos os direitos reservados.</span>
+          <span className="text-white/15 max-md:text-white/55 text-xs font-light tracking-wide">© 2026 Tanjō Jewelry. Todos os direitos reservados.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
             <a
               href="/politica-de-privacidade"
-              className="text-white/25 hover:text-white/50 text-xs font-light tracking-wide transition-colors"
+              className="text-white/25 max-md:text-white/70 hover:text-white/50 text-xs font-light tracking-wide transition-colors"
             >
               Política de Privacidade
             </a>
-            <span className="text-white/8 text-xs font-light">Alta Joalheria B2B · São Paulo</span>
+            <span className="text-white/8 max-md:text-white/45 text-xs font-light">Alta Joalheria B2B · São Paulo</span>
           </div>
         </div>
       </div>

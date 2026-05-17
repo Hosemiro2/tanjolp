@@ -33,21 +33,21 @@ function TanjoInput({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-white/50 text-xs tracking-widest uppercase font-light">{label}</label>
+      <label className="text-white/50 max-md:text-white/80 text-xs tracking-widest uppercase font-light">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className={`
-          bg-[#111] border text-white placeholder-white/20 text-sm font-light
+          bg-[#111] border text-white placeholder-white/20 max-md:placeholder-white/45 text-sm font-light
           px-4 py-3.5 outline-none transition-all duration-300 tracking-wide
           focus:border-[#B5522A] focus:bg-[#131313]
-          ${error ? "border-red-500/50" : "border-white/10 hover:border-white/20"}
+          ${error ? "border-red-500/50" : "border-white/10 max-md:border-white/25 hover:border-white/20"}
         `}
       />
       {error && <span className="text-red-400 text-xs font-light">{error}</span>}
-      {hint && !error && <span className="text-white/20 text-xs font-light">{hint}</span>}
+      {hint && !error && <span className="text-white/20 max-md:text-white/60 text-xs font-light">{hint}</span>}
     </div>
   );
 }
@@ -118,7 +118,7 @@ export default function LeadForm() {
         <h3 className="text-white text-xl md:text-2xl font-extralight tracking-wide">
           Crie sua conta B2B
         </h3>
-        <p className="text-white/30 text-sm font-light mt-2">
+        <p className="text-white/30 max-md:text-white/70 text-sm font-light mt-2">
           Preencha os dados abaixo para acessar a Danya AI
         </p>
       </div>
@@ -175,13 +175,13 @@ export default function LeadForm() {
 
         {/* LGPD — aviso discreto (sem checkbox bloqueante) */}
         <div className="md:col-span-2">
-          <p className="text-white/25 text-[11px] font-light leading-relaxed text-center">
+          <p className="text-white/25 max-md:text-white/65 text-[11px] font-light leading-relaxed text-center">
             Ao continuar, você concorda com nossa{" "}
             <a
               href="/politica-de-privacidade"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#B5522A]/80 hover:text-[#B5522A] underline underline-offset-2 decoration-[#B5522A]/30 hover:decoration-[#B5522A] transition-colors"
+              className="text-[#B5522A]/80 max-md:text-[#B5522A] hover:text-[#B5522A] underline underline-offset-2 decoration-[#B5522A]/30 max-md:decoration-[#B5522A]/60 hover:decoration-[#B5522A] transition-colors"
             >
               Política de Privacidade
             </a>
