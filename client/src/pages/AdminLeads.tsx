@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Loader2, LogOut, ChevronLeft, ChevronRight, MessageSquare, Image as ImageIcon } from "lucide-react";
+import { PerfilBadge } from "@/lib/perfil";
 
 export default function AdminLeads() {
   const [, navigate] = useLocation();
@@ -92,6 +93,7 @@ export default function AdminLeads() {
                   <th className="px-4 py-3">E-mail</th>
                   <th className="px-4 py-3">WhatsApp</th>
                   <th className="px-4 py-3">Empresa</th>
+                  <th className="px-4 py-3">Perfil</th>
                   <th className="px-4 py-3 text-center">Renders</th>
                   <th className="px-4 py-3"></th>
                 </tr>
@@ -120,6 +122,9 @@ export default function AdminLeads() {
                     </td>
                     <td className="px-4 py-4 text-white/50 font-light text-sm">
                       {lead.empresa || <span className="text-white/20">—</span>}
+                    </td>
+                    <td className="px-4 py-4">
+                      <PerfilBadge classificacao={lead.classificacao} score={lead.score} />
                     </td>
                     <td className="px-4 py-4 text-center">
                       <span className="inline-flex items-center gap-1.5 text-[#B5522A]/80 text-xs font-light">

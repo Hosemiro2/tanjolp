@@ -3,6 +3,12 @@ import { integer, pgEnum, pgTable, serial, text, timestamp, varchar, jsonb } fro
 // ─── Enums ────────────────────────────────────────────────────────────────────
 export const userRoleEnum = pgEnum("user_role", ["user", "admin"]);
 export const chatRoleEnum = pgEnum("chat_role", ["user", "assistant"]);
+export const leadCategoriaEnum = pgEnum("lead_categoria", [
+  "empresario",
+  "designer",
+  "entusiasta",
+  "indefinido",
+]);
 
 // ─── Users ────────────────────────────────────────────────────────────────────
 export const users = pgTable("users", {
@@ -32,6 +38,10 @@ export const leads = pgTable("leads", {
   empresa: varchar("empresa", { length: 255 }),
   sessionToken: varchar("sessionToken", { length: 64 }).notNull().unique(),
   imagesGenerated: integer("imagesGenerated").default(0).notNull(),
+  classificacao: leadCategoriaEnum("classificacao").default("indefinido").notNull(),
+  score: integer("score").default(0).notNull(),
+  sinais: jsonb("sinais").$type<string[]>().default([]).notNull(),
+  classificadoEm: timestamp("classificadoEm", { withTimezone: true }),
   createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 

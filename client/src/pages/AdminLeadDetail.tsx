@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useLocation, useRoute, Link } from "wouter";
+import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import { Loader2, ArrowLeft, Diamond, Mail, Phone, Building2, Calendar } from "lucide-react";
+import { PERFIL_BADGES, type LeadCategoria } from "@/lib/perfil";
 
 export default function AdminLeadDetail() {
   const [, navigate] = useLocation();
@@ -19,6 +21,15 @@ export default function AdminLeadDetail() {
     { id: leadId },
     { enabled: !!meQuery.data?.isAdmin && Number.isFinite(leadId) }
   );
+
+  const utils = trpc.useUtils();
+  const reclassifyMutation = trpc.admin.reclassifyLead.useMutation({
+    onSuccess: () => {
+      utils.admin.getLead.invalidate();
+      toast.success("Lead reclassificado.");
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   if (meQuery.isLoading || !meQuery.data?.isAdmin || detailQuery.isLoading) {
     return (
@@ -109,6 +120,70 @@ export default function AdminLeadDetail() {
             <Diamond className="w-3.5 h-3.5" />
             {lead.imagesGenerated} de 4 renders gerados
           </div>
+        </section>
+
+        {/* Qualificação */}
+        <section className="border border-white/5 rounded-lg p-6 bg-white/[0.02] mb-10">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-white/35 font-light mb-3">
+                Qualificação
+              </p>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl leading-none">
+                  {PERFIL_BADGES[(lead.classificacao ?? "indefinido") as LeadCategoria].emoji}
+                </span>
+                <div>
+                  <p className="text-lg font-light">
+                    {PERFIL_BADGES[(lead.classificacao ?? "indefinido") as LeadCategoria].label}
+                  </p>
+                  {lead.classificadoEm && (
+                    <p className="text-[11px] text-white/30 mt-0.5">
+                      Classificado em {formatDate(lead.classificadoEm)}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => reclassifyMutation.mutate({ id: lead.id })}
+              disabled={reclassifyMutation.isPending}
+              className="text-[10px] tracking-[0.2em] uppercase text-white/40 hover:text-[#B5522A] transition-colors disabled:opacity-40"
+            >
+              {reclassifyMutation.isPending ? "Processando..." : "Reclassificar"}
+            </button>
+          </div>
+
+          {lead.classificacao !== "indefinido" && (
+            <div className="mt-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-white/35 font-light">Score</p>
+                <p className="text-sm tabular-nums font-light">{lead.score}/100</p>
+              </div>
+              <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#B5522A] transition-all duration-700"
+                  style={{ width: `${lead.score}%` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {lead.sinais && lead.sinais.length > 0 && (
+            <div className="mt-5">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-white/35 font-light mb-2">
+                Sinais detectados
+              </p>
+              <ul className="space-y-1.5">
+                {lead.sinais.map((sinal: string, i: number) => (
+                  <li key={i} className="text-sm text-white/65 font-light flex gap-2">
+                    <span className="text-[#B5522A]/60 flex-shrink-0">•</span>
+                    <span>{sinal}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
 
         {/* Chat history */}

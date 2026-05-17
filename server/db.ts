@@ -134,3 +134,78 @@ export async function getUserById(id: number) {
   const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
   return result.length > 0 ? result[0] : undefined;
 }
+
+// ─── Lead Classification ────────────────────────────────────────────────────
+
+export async function updateLeadClassification(
+  leadId: number,
+  data: {
+    classificacao: "empresario" | "designer" | "entusiasta" | "indefinido";
+    score: number;
+    sinais: string[];
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db
+    .update(leads)
+    .set({
+      classificacao: data.classificacao,
+      score: data.score,
+      sinais: data.sinais,
+      classificadoEm: new Date(),
+    })
+    .where(eq(leads.id, leadId));
+}
+
+export async function clearLeadClassification(leadId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db
+    .update(leads)
+    .set({
+      classificacao: "indefinido",
+      score: 0,
+      sinais: [],
+      classificadoEm: null,
+    })
+    .where(eq(leads.id, leadId));
+}
+
+/**
+ * Retorna IDs de leads que precisam ser classificados:
+ * - classificadoEm IS NULL
+ * - última mensagem foi há mais de `maxAgeMinutes` minutos
+ * - lead tem pelo menos 4 mensagens do usuário no histórico
+ *
+ * Nota: as colunas do schema usam camelCase quoted (ver drizzle/schema.ts),
+ * por isso "leadId" e "createdAt" precisam estar entre aspas duplas no SQL.
+ */
+export async function getLeadsToClassify(maxAgeMinutes: number): Promise<number[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  const cutoff = new Date(Date.now() - maxAgeMinutes * 60 * 1000);
+
+  const result = await db.execute(sql`
+    SELECT l.id
+    FROM leads l
+    WHERE l."classificadoEm" IS NULL
+      AND EXISTS (
+        SELECT 1
+        FROM chat_messages cm
+        WHERE cm."leadId" = l.id
+        GROUP BY cm."leadId"
+        HAVING MAX(cm."createdAt") < ${cutoff.toISOString()}
+           AND COUNT(*) FILTER (WHERE cm.role = 'user') >= 4
+      )
+    ORDER BY l.id ASC
+    LIMIT 25
+  `);
+
+  // node-postgres returns { rows: [...] }; drizzle's execute proxies it.
+  const rows =
+    (result as unknown as { rows?: Array<{ id: number | string }> }).rows ??
+    (result as unknown as Array<{ id: number | string }>);
+  return rows.map((r) => Number(r.id));
+}

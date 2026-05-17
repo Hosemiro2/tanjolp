@@ -6,6 +6,8 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { classifyLead } from "./leadClassifier";
+import { getLeadsToClassify } from "../db";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -57,6 +59,27 @@ async function startServer() {
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
   });
+
+  // ─── Lead classifier scheduler ────────────────────────────────────────────
+  const CLASSIFIER_INTERVAL_MS = 5 * 60 * 1000; // 5min
+  const CLASSIFIER_INACTIVITY_MIN = 10; // lead "encerrado" após 10min sem msg
+
+  async function runClassifierTick(): Promise<void> {
+    try {
+      const ids = await getLeadsToClassify(CLASSIFIER_INACTIVITY_MIN);
+      if (ids.length === 0) return;
+      console.log(`[classifier] tick: processing ${ids.length} lead(s)`);
+      for (const id of ids) {
+        await classifyLead(id);
+      }
+    } catch (err) {
+      console.error("[classifier] tick failed:", err);
+    }
+  }
+
+  // Roda 30s após o boot pra processar backlog, depois a cada 5min
+  setTimeout(runClassifierTick, 30_000);
+  setInterval(runClassifierTick, CLASSIFIER_INTERVAL_MS);
 }
 
 startServer().catch(console.error);
