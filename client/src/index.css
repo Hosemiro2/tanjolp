@@ -4,26 +4,26 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: oklch(0.07 0 0);
-  --color-foreground: oklch(0.96 0 0);
-  --color-card: oklch(0.10 0 0);
-  --color-card-foreground: oklch(0.96 0 0);
-  --color-popover: oklch(0.10 0 0);
-  --color-popover-foreground: oklch(0.96 0 0);
-  --color-primary: oklch(0.55 0.14 38);
-  --color-primary-foreground: oklch(0.98 0 0);
-  --color-secondary: oklch(0.15 0 0);
-  --color-secondary-foreground: oklch(0.96 0 0);
-  --color-muted: oklch(0.15 0 0);
-  --color-muted-foreground: oklch(0.60 0 0);
-  --color-accent: oklch(0.55 0.14 38);
-  --color-accent-foreground: oklch(0.98 0 0);
+  --color-background: #0F0F11;
+  --color-foreground: #F5F5F7;
+  --color-card: #17171A;
+  --color-card-foreground: #F5F5F7;
+  --color-popover: #17171A;
+  --color-popover-foreground: #F5F5F7;
+  --color-primary: #B14F32;
+  --color-primary-foreground: #F5F5F7;
+  --color-secondary: #17171A;
+  --color-secondary-foreground: #F5F5F7;
+  --color-muted: #17171A;
+  --color-muted-foreground: #9C9CA3;
+  --color-accent: #B14F32;
+  --color-accent-foreground: #F5F5F7;
   --color-destructive: oklch(0.55 0.22 27);
-  --color-destructive-foreground: oklch(0.98 0 0);
-  --color-border: oklch(0.20 0 0);
-  --color-input: oklch(0.15 0 0);
-  --color-ring: oklch(0.55 0.14 38);
-  --color-chart-1: oklch(0.55 0.14 38);
+  --color-destructive-foreground: #F5F5F7;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: #17171A;
+  --color-ring: #B14F32;
+  --color-chart-1: #B14F32;
   --color-chart-2: oklch(0.70 0.10 80);
   --color-chart-3: oklch(0.50 0.08 200);
   --color-chart-4: oklch(0.65 0.12 150);
@@ -32,12 +32,30 @@
   --font-sans: 'Montserrat', sans-serif;
   --font-serif: 'Cormorant Garamond', serif;
 
-  /* Tanjo brand colors */
-  --color-tanjo-terracota: oklch(0.55 0.14 38);
-  --color-tanjo-gold: oklch(0.78 0.10 80);
-  --color-tanjo-dark: oklch(0.07 0 0);
-  --color-tanjo-dark-2: oklch(0.10 0 0);
-  --color-tanjo-dark-3: oklch(0.14 0 0);
+  /* Tanjo Carbon Atelier v2 — Pantone 7417 C aligned */
+  /* Backgrounds */
+  --color-tanjo-bg-deep:       #0F0F11;
+  --color-tanjo-bg-elevated:   #17171A;
+  --color-tanjo-bg-overlay:    #1F1F23;
+
+  /* Accent — Pantone 7417 C signature */
+  --color-tanjo-accent:        #B14F32;
+  --color-tanjo-accent-deep:   #8C3E26;
+  --color-tanjo-accent-bright: #D85F3D;
+
+  /* Text — cool neutral */
+  --color-tanjo-text-primary:   #F5F5F7;
+  --color-tanjo-text-secondary: #C8C8CE;
+  --color-tanjo-text-tertiary:  #9C9CA3;
+  --color-tanjo-text-muted:     #6E6E73;
+  --color-tanjo-text-disabled:  #48484D;
+
+  /* Legacy aliases (mantidos pra compat com classes existentes) */
+  --color-tanjo-terracota: #B14F32;
+  --color-tanjo-gold:      oklch(0.78 0.10 80);
+  --color-tanjo-dark:      #0F0F11;
+  --color-tanjo-dark-2:    #17171A;
+  --color-tanjo-dark-3:    #1F1F23;
 }
 
 @layer base {
@@ -50,8 +68,8 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Montserrat', sans-serif;
-    background-color: oklch(0.07 0 0);
-    color: oklch(0.96 0 0);
+    background-color: #0F0F11;
+    color: #F5F5F7;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
@@ -68,26 +86,26 @@
     font-family: 'Cormorant Garamond', serif;
   }
   .text-tanjo-terracota {
-    color: #B5522A;
+    color: #B14F32;
   }
   .bg-tanjo-terracota {
-    background-color: #B5522A;
+    background-color: #B14F32;
   }
   .border-tanjo-terracota {
-    border-color: #B5522A;
+    border-color: #B14F32;
   }
   .text-tanjo-gold {
     color: #C9A96E;
   }
   .tanjo-gradient {
-    background: linear-gradient(135deg, oklch(0.07 0 0) 0%, oklch(0.12 0.03 38) 100%);
+    background: linear-gradient(135deg, #0F0F11 0%, #1A1015 100%);
   }
   .tanjo-glow {
-    box-shadow: 0 0 40px oklch(0.55 0.14 38 / 0.15);
+    box-shadow: 0 0 40px rgba(177, 79, 50, 0.15);
   }
   .tanjo-border-glow {
-    border: 1px solid oklch(0.55 0.14 38 / 0.3);
-    box-shadow: 0 0 20px oklch(0.55 0.14 38 / 0.1);
+    border: 1px solid rgba(177, 79, 50, 0.3);
+    box-shadow: 0 0 20px rgba(177, 79, 50, 0.1);
   }
   .no-download {
     pointer-events: none;
@@ -101,14 +119,14 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: oklch(0.07 0 0);
+  background: #0F0F11;
 }
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.55 0.14 38 / 0.5);
+  background: rgba(177, 79, 50, 0.5);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.55 0.14 38);
+  background: #B14F32;
 }
 
 /* Particle animation */
@@ -145,8 +163,8 @@
   100% { background-position: 200% center; }
 }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px oklch(0.55 0.14 38 / 0.2); }
-  50% { box-shadow: 0 0 40px oklch(0.55 0.14 38 / 0.5); }
+  0%, 100% { box-shadow: 0 0 20px rgba(177, 79, 50, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(177, 79, 50, 0.5); }
 }
 @keyframes typing-dot {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
@@ -155,7 +173,7 @@
 
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, oklch(0.55 0.14 38 / 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(177, 79, 50, 0.3), transparent);
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }

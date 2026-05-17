@@ -32,8 +32,8 @@ export default function AdminLeads() {
 
   if (meQuery.isLoading || !meQuery.data?.isAdmin) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-[#B5522A] animate-spin" />
+      <div className="min-h-screen bg-tanjo-bg-deep flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-tanjo-accent animate-spin" />
       </div>
     );
   }
@@ -43,21 +43,21 @@ export default function AdminLeads() {
   const rows = leadsQuery.data?.rows ?? [];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-tanjo-bg-deep text-tanjo-text-primary">
       {/* Header */}
-      <header className="border-b border-white/5 px-6 md:px-12 py-5 sticky top-0 bg-[#0a0a0a]/95 backdrop-blur z-10">
+      <header className="border-b border-white/5 px-6 md:px-12 py-5 sticky top-0 bg-tanjo-bg-deep/95 backdrop-blur z-10">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div>
-            <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">
+            <span className="text-tanjo-accent/60 text-[10px] tracking-[0.4em] uppercase font-light">
               TANJŌ Studio · Admin
             </span>
-            <h1 className="text-white text-lg md:text-xl font-extralight tracking-wide mt-1">
+            <h1 className="text-tanjo-text-primary text-lg md:text-xl font-extralight tracking-wide mt-1">
               Leads B2B
             </h1>
           </div>
           <button
             onClick={() => logoutMutation.mutate()}
-            className="text-white/40 hover:text-white text-[11px] tracking-[0.22em] uppercase font-light flex items-center gap-2 transition-colors"
+            className="text-white/40 hover:text-tanjo-text-primary text-[11px] tracking-[0.22em] uppercase font-light flex items-center gap-2 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             Sair
@@ -77,7 +77,7 @@ export default function AdminLeads() {
         {/* Table */}
         {leadsQuery.isLoading ? (
           <div className="py-20 text-center">
-            <Loader2 className="w-6 h-6 text-[#B5522A] animate-spin mx-auto" />
+            <Loader2 className="w-6 h-6 text-tanjo-accent animate-spin mx-auto" />
           </div>
         ) : rows.length === 0 ? (
           <div className="py-20 text-center text-white/40 font-light">
@@ -86,7 +86,7 @@ export default function AdminLeads() {
         ) : (
           <div className="border border-white/5 overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-[#0f0f0f] border-b border-white/5">
+              <thead className="bg-tanjo-bg-elevated border-b border-white/5">
                 <tr className="text-left text-[10px] tracking-[0.22em] uppercase text-white/40 font-light">
                   <th className="px-4 py-3">Data</th>
                   <th className="px-4 py-3">Nome</th>
@@ -100,13 +100,13 @@ export default function AdminLeads() {
               </thead>
               <tbody>
                 {rows.map((lead) => (
-                  <tr key={lead.id} className="border-b border-white/5 hover:bg-[#0e0e0e] transition-colors">
+                  <tr key={lead.id} className="border-b border-white/5 hover:bg-tanjo-bg-elevated transition-colors">
                     <td className="px-4 py-4 text-white/50 text-xs font-light whitespace-nowrap">
                       {formatDate(lead.createdAt)}
                     </td>
-                    <td className="px-4 py-4 text-white font-light text-sm">{lead.nome}</td>
+                    <td className="px-4 py-4 text-tanjo-text-primary font-light text-sm">{lead.nome}</td>
                     <td className="px-4 py-4 text-white/60 font-light text-sm">
-                      <a href={`mailto:${lead.email}`} className="hover:text-[#B5522A]">
+                      <a href={`mailto:${lead.email}`} className="hover:text-tanjo-accent-bright">
                         {lead.email}
                       </a>
                     </td>
@@ -115,7 +115,7 @@ export default function AdminLeads() {
                         href={`https://wa.me/${lead.whatsapp.replace(/\D/g, "")}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-[#B5522A]"
+                        className="hover:text-tanjo-accent-bright"
                       >
                         {formatPhone(lead.whatsapp)}
                       </a>
@@ -127,7 +127,7 @@ export default function AdminLeads() {
                       <PerfilBadge classificacao={lead.classificacao} score={lead.score} />
                     </td>
                     <td className="px-4 py-4 text-center">
-                      <span className="inline-flex items-center gap-1.5 text-[#B5522A]/80 text-xs font-light">
+                      <span className="inline-flex items-center gap-1.5 text-tanjo-accent/80 text-xs font-light">
                         <ImageIcon className="w-3 h-3" />
                         {lead.imagesGenerated}/4
                       </span>
@@ -135,7 +135,7 @@ export default function AdminLeads() {
                     <td className="px-4 py-4 text-right">
                       <Link
                         href={`/admin/lead/${lead.id}`}
-                        className="inline-flex items-center gap-1.5 text-[#B5522A] hover:text-[#B5522A]/80 text-[11px] tracking-widest uppercase font-light"
+                        className="inline-flex items-center gap-1.5 text-tanjo-accent hover:text-tanjo-accent-bright/80 text-[11px] tracking-widest uppercase font-light"
                       >
                         <MessageSquare className="w-3 h-3" />
                         Ver chat
@@ -154,7 +154,7 @@ export default function AdminLeads() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="p-2 text-white/40 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed"
+              className="p-2 text-white/40 hover:text-tanjo-text-primary disabled:opacity-20 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -164,7 +164,7 @@ export default function AdminLeads() {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page >= totalPages}
-              className="p-2 text-white/40 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed"
+              className="p-2 text-white/40 hover:text-tanjo-text-primary disabled:opacity-20 disabled:cursor-not-allowed"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -177,9 +177,9 @@ export default function AdminLeads() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-[#0a0a0a] p-4 md:p-6">
+    <div className="bg-tanjo-bg-deep p-4 md:p-6">
       <div className="text-white/30 text-[10px] tracking-[0.3em] uppercase font-light">{label}</div>
-      <div className="text-[#B5522A] text-2xl font-extralight font-serif mt-2">{value}</div>
+      <div className="text-tanjo-accent text-2xl font-extralight font-serif mt-2">{value}</div>
     </div>
   );
 }

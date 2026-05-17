@@ -39,8 +39,8 @@ function HeroBackground({ scrollY }: { scrollY: number }) {
         className="absolute inset-0"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(181,82,42,0.055) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(181,82,42,0.055) 1px, transparent 1px)
+            linear-gradient(rgba(177,79,50,0.055) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(177,79,50,0.055) 1px, transparent 1px)
           `,
           backgroundSize: "70px 70px",
           backgroundPosition: `0 ${(scrollY * 0.25) % 70}px`,
@@ -57,7 +57,7 @@ function HeroBackground({ scrollY }: { scrollY: number }) {
         style={{
           width: "800px",
           height: "500px",
-          background: "radial-gradient(ellipse at 50% 40%, rgba(181,82,42,0.09) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse at 50% 40%, rgba(177,79,50,0.09) 0%, transparent 65%)",
           transform: `translateY(${scrollY * 0.06}px)`,
         }}
       />
@@ -67,8 +67,8 @@ function HeroBackground({ scrollY }: { scrollY: number }) {
         className="absolute left-0 right-0 h-px"
         style={{
           top: "54%",
-          background: "linear-gradient(90deg, transparent 5%, rgba(181,82,42,0.35) 30%, rgba(181,82,42,0.6) 50%, rgba(181,82,42,0.35) 70%, transparent 95%)",
-          boxShadow: "0 0 30px 6px rgba(181,82,42,0.12)",
+          background: "linear-gradient(90deg, transparent 5%, rgba(177,79,50,0.35) 30%, rgba(177,79,50,0.6) 50%, rgba(177,79,50,0.35) 70%, transparent 95%)",
+          boxShadow: "0 0 30px 6px rgba(177,79,50,0.12)",
         }}
       />
 
@@ -76,7 +76,7 @@ function HeroBackground({ scrollY }: { scrollY: number }) {
       {particles.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full bg-[#B5522A]"
+          className="absolute rounded-full bg-tanjo-accent"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
@@ -89,8 +89,8 @@ function HeroBackground({ scrollY }: { scrollY: number }) {
       ))}
 
       {/* Corner accents — minimal */}
-      <div className="absolute top-0 left-0 w-12 h-12" style={{ borderTop: "1px solid rgba(181,82,42,0.2)", borderLeft: "1px solid rgba(181,82,42,0.2)" }} />
-      <div className="absolute top-0 right-0 w-12 h-12" style={{ borderTop: "1px solid rgba(181,82,42,0.2)", borderRight: "1px solid rgba(181,82,42,0.2)" }} />
+      <div className="absolute top-0 left-0 w-12 h-12" style={{ borderTop: "1px solid rgba(177,79,50,0.2)", borderLeft: "1px solid rgba(177,79,50,0.2)" }} />
+      <div className="absolute top-0 right-0 w-12 h-12" style={{ borderTop: "1px solid rgba(177,79,50,0.2)", borderRight: "1px solid rgba(177,79,50,0.2)" }} />
     </div>
   );
 }
@@ -140,7 +140,7 @@ function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        scrolled ? "bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
+        scrolled ? "bg-tanjo-bg-deep/95 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
       }`}
     >
       <div className="relative h-16 md:h-20 flex items-center px-5 md:px-12">
@@ -208,7 +208,7 @@ function Navbar() {
         <div className="ml-auto z-10 flex items-center gap-3">
           <button
             onClick={() => scrollTo("studio")}
-            className="hidden md:block border border-[#B5522A]/50 text-[#B5522A] hover:bg-[#B5522A] hover:text-white px-5 py-2 text-[10px] tracking-[0.22em] font-light transition-all duration-300 uppercase"
+            className="hidden md:block border border-tanjo-accent/50 text-tanjo-accent hover:bg-tanjo-accent hover:text-white px-5 py-2 text-[10px] tracking-[0.22em] font-light transition-all duration-300 uppercase"
           >
             Estúdio IA
           </button>
@@ -224,13 +224,13 @@ function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0a0a]/98 backdrop-blur-xl border-t border-white/5 px-6 py-6 flex flex-col gap-5">
+        <div className="md:hidden bg-tanjo-bg-deep/98 backdrop-blur-xl border-t border-white/5 px-6 py-6 flex flex-col gap-5">
           {[...leftLinks, ...rightLinks].map((item) => (
             <button key={item.id} onClick={() => scrollTo(item.id)} className="text-white/50 hover:text-white text-sm tracking-widest font-light uppercase text-left transition-colors">
               {item.label}
             </button>
           ))}
-          <button onClick={() => scrollTo("studio")} className="border border-[#B5522A] text-[#B5522A] px-5 py-3 text-xs tracking-widest font-light uppercase text-center mt-2">
+          <button onClick={() => scrollTo("studio")} className="border border-tanjo-accent text-tanjo-accent px-5 py-3 text-xs tracking-widest font-light uppercase text-center mt-2">
             Estúdio IA
           </button>
         </div>
@@ -245,7 +245,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
   const opacity = Math.max(0, 1 - scrollY / 650);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-tanjo-bg-deep">
       <HeroBackground scrollY={scrollY} />
 
       <div
@@ -258,7 +258,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
           transition={{ duration: 1, delay: 0.3 }}
           className="mb-8"
         >
-          <span className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.5em] font-light uppercase border border-[#B5522A]/20 max-md:border-[#B5522A]/45 px-5 py-2">
+          <span className="text-tanjo-accent/70 max-md:text-tanjo-accent/95 text-[10px] tracking-[0.5em] font-light uppercase border border-tanjo-accent/20 max-md:border-tanjo-accent/45 px-5 py-2">
             Alta Joalheria B2B · São Paulo
           </span>
         </motion.div>
@@ -271,7 +271,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
         >
           Fabricação de joias
           <br />
-          <em className="not-italic text-[#B5522A]" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+          <em className="not-italic text-tanjo-accent" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
             que elevam
           </em>
           <br />
@@ -296,7 +296,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
         >
           <button
             onClick={() => document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" })}
-            className="group bg-[#B5522A] hover:bg-[#9a4523] text-white px-12 py-4 text-[11px] tracking-[0.3em] font-light uppercase transition-all duration-300 flex items-center gap-3 justify-center"
+            className="group bg-tanjo-accent hover:bg-tanjo-accent-deep text-white px-12 py-4 text-[11px] tracking-[0.3em] font-light uppercase transition-all duration-300 flex items-center gap-3 justify-center"
           >
             Criar com IA
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -321,7 +321,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
             { value: "5 anos", label: "De Excelência" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="text-[#B5522A] text-base sm:text-xl font-light tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>{stat.value}</div>
+              <div className="text-tanjo-accent text-base sm:text-xl font-light tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>{stat.value}</div>
               <div className="text-white/20 max-md:text-white/65 text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-1.5">{stat.label}</div>
             </div>
           ))}
@@ -335,7 +335,7 @@ function HeroSection({ scrollY }: { scrollY: number }) {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         style={{ opacity: opacity * 0.6 }}
       >
-        <ChevronDown className="w-4 h-4 text-[#B5522A]/40 animate-bounce" />
+        <ChevronDown className="w-4 h-4 text-tanjo-accent/40 animate-bounce" />
       </motion.div>
     </section>
   );
@@ -351,13 +351,13 @@ function PilaresSection() {
   ];
 
   return (
-    <section id="pilares" className="py-24 bg-[#0a0a0a] border-t border-white/4">
+    <section id="pilares" className="py-24 bg-tanjo-bg-deep border-t border-white/4">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/4">
           {pilares.map((p, i) => (
             <FadeIn key={p.title} delay={i * 0.1}>
-              <div className="bg-[#0a0a0a] p-10 text-center group hover:bg-[#0e0e0e] transition-colors duration-500">
-                <div className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 mb-6 flex justify-center group-hover:text-[#B5522A] group-hover:scale-110 transition-all duration-300">
+              <div className="bg-tanjo-bg-deep p-10 text-center group hover:bg-tanjo-bg-elevated transition-colors duration-500">
+                <div className="text-tanjo-accent/70 max-md:text-tanjo-accent/95 mb-6 flex justify-center group-hover:text-tanjo-accent-bright group-hover:scale-110 transition-all duration-300">
                   {p.icon}
                 </div>
                 <h3 className="text-white/60 max-md:text-white/85 text-[10px] tracking-[0.35em] uppercase font-light mb-4">{p.title}</h3>
@@ -374,12 +374,12 @@ function PilaresSection() {
 // ─── Sobre Section ────────────────────────────────────────────────────────────
 function SobreSection() {
   return (
-    <section id="sobre" className="py-32 bg-[#0a0a0a] border-t border-white/4">
+    <section id="sobre" className="py-32 bg-tanjo-bg-deep border-t border-white/4">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <FadeIn>
             <div>
-              <span className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.4em] uppercase font-light">Sobre a TANJŌ</span>
+              <span className="text-tanjo-accent/70 max-md:text-tanjo-accent/95 text-[10px] tracking-[0.4em] uppercase font-light">Sobre a TANJŌ</span>
               <h2 className="text-4xl md:text-5xl font-extralight text-white mt-4 mb-8 leading-tight">
                 Tradição, tecnologia
                 <br />
@@ -396,7 +396,7 @@ function SobreSection() {
               </p>
               <button
                 onClick={() => document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" })}
-                className="group flex items-center gap-3 text-[#B5522A] text-[11px] tracking-[0.3em] uppercase font-light hover:gap-5 transition-all duration-300"
+                className="group flex items-center gap-3 text-tanjo-accent text-[11px] tracking-[0.3em] uppercase font-light hover:gap-5 transition-all duration-300"
               >
                 Criar sua coleção
                 <ArrowRight className="w-4 h-4" />
@@ -444,20 +444,20 @@ function ProcessoSection() {
   ];
 
   return (
-    <section id="processo" className="py-32 bg-[#080808] border-t border-white/4">
+    <section id="processo" className="py-32 bg-tanjo-bg-deep border-t border-white/4">
       <div className="container">
         <FadeIn>
           <div className="text-center mb-20">
-            <span className="text-[#B5522A]/60 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.4em] uppercase font-light">O Processo</span>
+            <span className="text-tanjo-accent/60 max-md:text-tanjo-accent/95 text-[10px] tracking-[0.4em] uppercase font-light">O Processo</span>
             <h2 className="text-4xl md:text-5xl font-extralight text-white mt-4 leading-tight">
               Da ideia à
-              <span className="font-serif italic text-[#B5522A]"> joia perfeita</span>
+              <span className="font-serif italic text-tanjo-accent"> joia perfeita</span>
             </h2>
           </div>
         </FadeIn>
 
         <div className="relative">
-          <div className="hidden lg:block absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B5522A]/20 to-transparent" />
+          <div className="hidden lg:block absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-transparent via-tanjo-accent/20 to-transparent" />
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {steps.map((step, i) => (
               <FadeIn key={step.num} delay={i * 0.15}>
@@ -472,13 +472,13 @@ function ProcessoSection() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       </>
                     ) : (
-                      <div className="w-full h-full bg-[#0d0d0d] flex flex-col items-center justify-center gap-3">
-                        <div className="text-[#B5522A]/25">{step.icon}</div>
+                      <div className="w-full h-full bg-tanjo-bg-deep flex flex-col items-center justify-center gap-3">
+                        <div className="text-tanjo-accent/25">{step.icon}</div>
                         <span className="text-white/15 max-md:text-white/55 text-[9px] tracking-[0.4em] uppercase font-light">Em breve</span>
                       </div>
                     )}
-                    <div className="absolute top-3 left-3 w-8 h-8 rounded-full border border-[#B5522A]/30 max-md:border-[#B5522A]/55 flex items-center justify-center bg-black/60 max-md:bg-black/80">
-                      <span className="text-[#B5522A]/80 max-md:text-[#B5522A] text-[11px] font-extralight" style={{ fontFamily: "'Cinzel', serif" }}>{step.num}</span>
+                    <div className="absolute top-3 left-3 w-8 h-8 rounded-full border border-tanjo-accent/30 max-md:border-tanjo-accent/55 flex items-center justify-center bg-black/60 max-md:bg-black/80">
+                      <span className="text-tanjo-accent/80 max-md:text-tanjo-accent text-[11px] font-extralight" style={{ fontFamily: "'Cinzel', serif" }}>{step.num}</span>
                     </div>
                   </div>
                   <h3 className="text-white/60 max-md:text-white/85 text-[10px] tracking-[0.25em] uppercase font-light mb-3">{step.title}</h3>
@@ -512,22 +512,22 @@ function StudioSection() {
   const project = projects[0];
 
   return (
-    <section id="studio" className="pt-6 lg:pt-8 pb-12 lg:pb-16 bg-[#0a0a0a] border-t border-white/4 relative overflow-hidden">
+    <section id="studio" className="pt-6 lg:pt-8 pb-12 lg:pb-16 bg-tanjo-bg-deep border-t border-white/4 relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(181,82,42,0.05) 0%, transparent 60%)" }}
+        style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(177,79,50,0.05) 0%, transparent 60%)" }}
       />
       <div className="container relative z-10">
         {/* Header — compacto */}
         <FadeIn>
           <div className="text-center mb-8 lg:mb-10 max-w-2xl mx-auto">
-            <span className="text-[#B5522A]/60 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.3em] uppercase font-light">Estúdio Virtual</span>
+            <span className="text-tanjo-accent/60 max-md:text-tanjo-accent/95 text-[10px] tracking-[0.3em] uppercase font-light">Estúdio Virtual</span>
             <h2 className="text-3xl lg:text-4xl font-extralight text-white mt-3 mb-4 leading-tight">
               Visualize o futuro{" "}
-              <span className="font-serif italic text-[#B5522A]">da sua coleção</span>
+              <span className="font-serif italic text-tanjo-accent">da sua coleção</span>
             </h2>
             <p className="text-white/40 max-md:text-white/72 font-light text-sm lg:text-base leading-relaxed">
-              Converse com a <strong className="text-[#B5522A] font-light">Danya</strong>, nossa Diretora Criativa de
+              Converse com a <strong className="text-tanjo-accent font-light">Danya</strong>, nossa Diretora Criativa de
               Inteligência Artificial. Ela vai entender a sua ideia e gerar conceitos fotorrealistas exclusivos da sua próxima joia em segundos.
             </p>
           </div>
@@ -540,11 +540,11 @@ function StudioSection() {
             <div className="flex flex-col h-full">
               {/* 3D viewer único, proporção controlada */}
               <div
-                className="aspect-square max-h-[420px] bg-black/30 max-md:bg-black/55 border border-[#B5522A]/20 max-md:border-[#B5522A]/45 rounded overflow-hidden relative"
+                className="aspect-square max-h-[420px] bg-black/30 max-md:bg-black/55 border border-tanjo-accent/20 max-md:border-tanjo-accent/45 rounded overflow-hidden relative"
                 style={{ boxShadow: "inset 0 0 40px 10px rgba(0,0,0,0.3)" }}
               >
-                <div className="absolute top-3 left-3 z-20 px-3 py-1.5 rounded-sm bg-black/70 border border-[#B5522A]/40 backdrop-blur-sm pointer-events-none">
-                  <span className="text-[10px] tracking-[0.25em] uppercase font-light text-[#B5522A]/90">
+                <div className="absolute top-3 left-3 z-20 px-3 py-1.5 rounded-sm bg-black/70 border border-tanjo-accent/40 backdrop-blur-sm pointer-events-none">
+                  <span className="text-[10px] tracking-[0.25em] uppercase font-light text-tanjo-accent/90">
                     ● Projeto Real · Design 3D Tanjō
                   </span>
                 </div>
@@ -566,7 +566,7 @@ function StudioSection() {
               <div className="flex-grow min-h-[16px]" />
 
               {/* Tag rodapé alinhada com a direita */}
-              <div className="text-center text-[#B5522A]/70 max-md:text-[#B5522A]/95 text-[10px] tracking-[0.3em] uppercase font-light pt-3">
+              <div className="text-center text-tanjo-accent/70 max-md:text-tanjo-accent/95 text-[10px] tracking-[0.3em] uppercase font-light pt-3">
                 ● {project.tag}
               </div>
             </div>
@@ -590,7 +590,7 @@ function StudioSection() {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer id="contato" className="bg-[#070707] border-t border-white/4 py-16">
+    <footer id="contato" className="bg-tanjo-bg-deep border-t border-white/4 py-16">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
@@ -624,7 +624,7 @@ function Footer() {
               <span>comercial@tanjoo.com.br</span>
               <span>São Paulo — SP, Brasil</span>
               <div className="flex gap-4 mt-2">
-                <a href="https://instagram.com/tanjojewel" target="_blank" rel="noopener noreferrer" className="text-[#B5522A]/70 max-md:text-[#B5522A]/95 hover:text-[#B5522A] transition-colors text-[10px] tracking-widest uppercase">
+                <a href="https://instagram.com/tanjojewel" target="_blank" rel="noopener noreferrer" className="text-tanjo-accent/70 max-md:text-tanjo-accent/95 hover:text-tanjo-accent-bright transition-colors text-[10px] tracking-widest uppercase">
                   Instagram
                 </a>
               </div>
@@ -652,7 +652,7 @@ function Footer() {
 export default function Home() {
   const scrollY = useScrollY();
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-tanjo-bg-deep">
       <Atmosphere />
       <Navbar />
       <HeroSection scrollY={scrollY} />

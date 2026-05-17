@@ -33,20 +33,20 @@ export default function AdminLeadDetail() {
 
   if (meQuery.isLoading || !meQuery.data?.isAdmin || detailQuery.isLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-[#B5522A] animate-spin" />
+      <div className="min-h-screen bg-tanjo-bg-deep flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-tanjo-accent animate-spin" />
       </div>
     );
   }
 
   if (detailQuery.isError || !detailQuery.data) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white/50">
+      <div className="min-h-screen bg-tanjo-bg-deep flex items-center justify-center text-white/50">
         <div className="text-center">
           <p className="mb-4">Lead não encontrado.</p>
           <Link
             href="/admin"
-            className="text-[#B5522A] hover:underline text-sm tracking-wider uppercase font-light"
+            className="text-tanjo-accent hover:underline text-sm tracking-wider uppercase font-light"
           >
             Voltar
           </Link>
@@ -58,17 +58,17 @@ export default function AdminLeadDetail() {
   const { lead, history } = detailQuery.data;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <header className="border-b border-white/5 px-6 md:px-12 py-5 sticky top-0 bg-[#0a0a0a]/95 backdrop-blur z-10">
+    <div className="min-h-screen bg-tanjo-bg-deep text-tanjo-text-primary">
+      <header className="border-b border-white/5 px-6 md:px-12 py-5 sticky top-0 bg-tanjo-bg-deep/95 backdrop-blur z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link
             href="/admin"
-            className="flex items-center gap-2 text-white/40 hover:text-white text-[11px] tracking-[0.22em] uppercase font-light transition-colors"
+            className="flex items-center gap-2 text-white/40 hover:text-tanjo-text-primary text-[11px] tracking-[0.22em] uppercase font-light transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Voltar
           </Link>
-          <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">
+          <span className="text-tanjo-accent/60 text-[10px] tracking-[0.4em] uppercase font-light">
             Lead #{lead.id}
           </span>
         </div>
@@ -76,8 +76,8 @@ export default function AdminLeadDetail() {
 
       <main className="max-w-4xl mx-auto px-6 md:px-12 py-10">
         {/* Lead info */}
-        <section className="bg-[#0f0f0f] border border-white/5 p-6 md:p-8 mb-10">
-          <h1 className="text-white text-2xl md:text-3xl font-extralight mb-1">{lead.nome}</h1>
+        <section className="bg-tanjo-bg-elevated border border-white/5 p-6 md:p-8 mb-10">
+          <h1 className="text-tanjo-text-primary text-2xl md:text-3xl font-extralight mb-1">{lead.nome}</h1>
           {lead.empresa && (
             <p className="text-white/40 text-sm font-light tracking-wide mb-6">{lead.empresa}</p>
           )}
@@ -86,7 +86,7 @@ export default function AdminLeadDetail() {
               icon={<Mail className="w-3.5 h-3.5" />}
               label="E-mail"
               value={
-                <a href={`mailto:${lead.email}`} className="text-white/80 hover:text-[#B5522A]">
+                <a href={`mailto:${lead.email}`} className="text-white/80 hover:text-tanjo-accent-bright">
                   {lead.email}
                 </a>
               }
@@ -99,7 +99,7 @@ export default function AdminLeadDetail() {
                   href={`https://wa.me/${lead.whatsapp.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/80 hover:text-[#B5522A]"
+                  className="text-white/80 hover:text-tanjo-accent-bright"
                 >
                   {lead.whatsapp}
                 </a>
@@ -116,7 +116,7 @@ export default function AdminLeadDetail() {
               value={formatDate(lead.createdAt)}
             />
           </div>
-          <div className="mt-6 pt-6 border-t border-white/5 flex items-center gap-2 text-[#B5522A]/80 text-sm font-light">
+          <div className="mt-6 pt-6 border-t border-white/5 flex items-center gap-2 text-tanjo-accent/80 text-sm font-light">
             <Diamond className="w-3.5 h-3.5" />
             {lead.imagesGenerated} de 4 renders gerados
           </div>
@@ -148,7 +148,7 @@ export default function AdminLeadDetail() {
             <button
               onClick={() => reclassifyMutation.mutate({ id: lead.id })}
               disabled={reclassifyMutation.isPending}
-              className="text-[10px] tracking-[0.2em] uppercase text-white/40 hover:text-[#B5522A] transition-colors disabled:opacity-40"
+              className="text-[10px] tracking-[0.2em] uppercase text-white/40 hover:text-tanjo-accent-bright transition-colors disabled:opacity-40"
             >
               {reclassifyMutation.isPending ? "Processando..." : "Reclassificar"}
             </button>
@@ -162,7 +162,7 @@ export default function AdminLeadDetail() {
               </div>
               <div className="h-1 bg-white/5 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#B5522A] transition-all duration-700"
+                  className="h-full bg-tanjo-accent-bright transition-all duration-700"
                   style={{ width: `${lead.score}%` }}
                 />
               </div>
@@ -177,7 +177,7 @@ export default function AdminLeadDetail() {
               <ul className="space-y-1.5">
                 {lead.sinais.map((sinal: string, i: number) => (
                   <li key={i} className="text-sm text-white/65 font-light flex gap-2">
-                    <span className="text-[#B5522A]/60 flex-shrink-0">•</span>
+                    <span className="text-tanjo-accent/60 flex-shrink-0">•</span>
                     <span>{sinal}</span>
                   </li>
                 ))}
@@ -203,8 +203,8 @@ export default function AdminLeadDetail() {
                   className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                 >
                   {msg.role === "assistant" && (
-                    <div className="w-8 h-8 rounded-full bg-[#1a1a1a] border border-[#B5522A]/30 flex items-center justify-center flex-shrink-0 mt-1">
-                      <Diamond className="w-3.5 h-3.5 text-[#B5522A]" />
+                    <div className="w-8 h-8 rounded-full bg-tanjo-bg-overlay border border-tanjo-accent/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <Diamond className="w-3.5 h-3.5 text-tanjo-accent" />
                     </div>
                   )}
                   <div
@@ -213,15 +213,15 @@ export default function AdminLeadDetail() {
                     }`}
                   >
                     {msg.role === "assistant" && (
-                      <span className="text-[#B5522A] text-[10px] tracking-widest uppercase font-light px-1">
+                      <span className="text-tanjo-accent text-[10px] tracking-widest uppercase font-light px-1">
                         Danya AI
                       </span>
                     )}
                     <div
                       className={`px-5 py-4 text-sm font-light leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-[#B5522A]/20 border border-[#B5522A]/30 text-white/90"
-                          : "bg-[#141414] border border-white/5 text-white/80"
+                          ? "bg-tanjo-accent/20 border border-tanjo-accent/30 text-white/90"
+                          : "bg-tanjo-bg-overlay border border-white/5 text-white/80"
                       }`}
                     >
                       {msg.content}
@@ -234,7 +234,7 @@ export default function AdminLeadDetail() {
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="border border-[#B5522A]/20 hover:border-[#B5522A] transition-colors block"
+                            className="border border-tanjo-accent/20 hover:border-tanjo-accent-bright transition-colors block"
                           >
                             <img
                               src={url}
@@ -271,7 +271,7 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="text-[#B5522A]/60 mt-0.5">{icon}</div>
+      <div className="text-tanjo-accent/60 mt-0.5">{icon}</div>
       <div>
         <div className="text-white/40 text-[10px] tracking-widest uppercase font-light">{label}</div>
         <div className="text-white/80 font-light mt-1">{value}</div>

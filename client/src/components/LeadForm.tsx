@@ -40,9 +40,9 @@ function TanjoInput({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className={`
-          bg-[#111] border text-white placeholder-white/20 max-md:placeholder-white/45 text-sm font-light
+          bg-tanjo-bg-elevated border text-tanjo-text-primary placeholder-white/20 max-md:placeholder-white/45 text-sm font-light
           px-4 py-3.5 outline-none transition-all duration-300 tracking-wide
-          focus:border-[#B5522A] focus:bg-[#131313]
+          focus:border-tanjo-accent focus:bg-tanjo-bg-overlay
           ${error ? "border-red-500/50" : "border-white/10 max-md:border-white/25 hover:border-white/20"}
         `}
       />
@@ -97,25 +97,25 @@ export default function LeadForm() {
 
   if (submitted) {
     return (
-      <div className="tanjo-border-glow bg-[#0f0f0f] p-12 text-center">
-        <CheckCircle className="w-12 h-12 text-[#B5522A] mx-auto mb-6" />
-        <h3 className="text-white text-xl font-extralight tracking-widest mb-3">Acesso Liberado</h3>
+      <div className="tanjo-border-glow bg-tanjo-bg-elevated p-12 text-center">
+        <CheckCircle className="w-12 h-12 text-tanjo-accent mx-auto mb-6" />
+        <h3 className="text-tanjo-text-primary text-xl font-extralight tracking-widest mb-3">Acesso Liberado</h3>
         <p className="text-white/40 text-sm font-light">Abrindo o Estúdio Danya AI...</p>
       </div>
     );
   }
 
   return (
-    <div className="tanjo-border-glow bg-[#0f0f0f] p-6 sm:p-8 md:p-12">
+    <div className="tanjo-border-glow bg-tanjo-bg-elevated p-6 sm:p-8 md:p-12">
       <div className="text-center mb-8 md:mb-10">
-        <div className="inline-flex items-center gap-2 text-[#B5522A] text-xs tracking-[0.4em] uppercase font-light mb-4">
+        <div className="inline-flex items-center gap-2 text-tanjo-accent text-xs tracking-[0.4em] uppercase font-light mb-4">
           <div
-            className="w-1.5 h-1.5 rounded-full bg-[#B5522A]"
+            className="w-1.5 h-1.5 rounded-full bg-tanjo-accent"
             style={{ animation: "tk-pulse 1.4s ease-in-out infinite" }}
           />
           Acesso ao Estúdio Virtual
         </div>
-        <h3 className="text-white text-xl md:text-2xl font-extralight tracking-wide">
+        <h3 className="text-tanjo-text-primary text-xl md:text-2xl font-extralight tracking-wide">
           Crie sua conta B2B
         </h3>
         <p className="text-white/30 max-md:text-white/70 text-sm font-light mt-2">
@@ -157,7 +157,7 @@ export default function LeadForm() {
           <button
             type="submit"
             disabled={registerMutation.isPending}
-            className="w-full group bg-[#B5522A] hover:bg-[#9a4523] disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 text-sm tracking-widest font-light uppercase transition-all duration-300 flex items-center justify-center gap-3"
+            className="w-full group bg-tanjo-accent hover:bg-tanjo-accent-deep disabled:opacity-50 disabled:cursor-not-allowed text-tanjo-text-primary py-4 text-sm tracking-widest font-light uppercase transition-all duration-300 flex items-center justify-center gap-3"
           >
             {registerMutation.isPending ? (
               <>
@@ -181,7 +181,7 @@ export default function LeadForm() {
               href="/politica-de-privacidade"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#B5522A]/80 max-md:text-[#B5522A] hover:text-[#B5522A] underline underline-offset-2 decoration-[#B5522A]/30 max-md:decoration-[#B5522A]/60 hover:decoration-[#B5522A] transition-colors"
+              className="text-tanjo-accent/80 max-md:text-tanjo-accent hover:text-tanjo-accent-bright underline underline-offset-2 decoration-tanjo-accent/30 max-md:decoration-tanjo-accent/60 hover:decoration-tanjo-accent-bright transition-colors"
             >
               Política de Privacidade
             </a>

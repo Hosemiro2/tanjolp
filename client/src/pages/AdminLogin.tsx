@@ -26,13 +26,13 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-tanjo-bg-deep flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1a1a1a] border border-[#B5522A]/30 mb-6">
-            <Lock className="w-5 h-5 text-[#B5522A]" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-tanjo-bg-overlay border border-tanjo-accent/30 mb-6">
+            <Lock className="w-5 h-5 text-tanjo-accent" />
           </div>
-          <h1 className="text-white text-2xl font-extralight tracking-[0.3em] uppercase">
+          <h1 className="text-tanjo-text-primary text-2xl font-extralight tracking-[0.3em] uppercase">
             Painel · Leads
           </h1>
           <p className="text-white/30 text-xs font-light tracking-widest uppercase mt-3">
@@ -42,7 +42,7 @@ export default function AdminLogin() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-[#0f0f0f] border border-[#B5522A]/20 p-8 space-y-6"
+          className="bg-tanjo-bg-elevated border border-tanjo-accent/20 p-8 space-y-6"
         >
           <div className="flex flex-col gap-2">
             <label className="text-white/50 text-xs tracking-widest uppercase font-light">
@@ -53,14 +53,14 @@ export default function AdminLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoFocus
-              className="bg-[#111] border border-white/10 focus:border-[#B5522A] text-white text-sm font-light px-4 py-3.5 outline-none transition-all tracking-wide"
+              className="bg-tanjo-bg-elevated border border-white/10 focus:border-tanjo-accent text-tanjo-text-primary text-sm font-light px-4 py-3.5 outline-none transition-all tracking-wide"
             />
           </div>
 
           <button
             type="submit"
             disabled={loginMutation.isPending || !password.trim()}
-            className="w-full bg-[#B5522A] hover:bg-[#9a4523] disabled:opacity-40 disabled:cursor-not-allowed text-white py-3.5 text-xs tracking-widest font-light uppercase transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-tanjo-accent hover:bg-tanjo-accent-deep disabled:opacity-40 disabled:cursor-not-allowed text-tanjo-text-primary py-3.5 text-xs tracking-widest font-light uppercase transition-colors flex items-center justify-center gap-2"
           >
             {loginMutation.isPending ? (
               <>

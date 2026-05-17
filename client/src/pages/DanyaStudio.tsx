@@ -27,13 +27,13 @@ function TanjoLogo({ size = 32 }: { size?: number }) {
       />
       <div className="flex flex-col leading-none">
         <span
-          className="text-white font-light tracking-[0.3em] text-base"
+          className="text-tanjo-text-primary font-light tracking-[0.3em] text-base"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           TANJŌ
         </span>
         <span
-          className="text-[#B5522A] text-[8px] tracking-[0.4em] font-light mt-0.5"
+          className="text-tanjo-accent text-[8px] tracking-[0.4em] font-light mt-0.5"
           style={{ fontFamily: "'Montserrat', sans-serif" }}
         >
           JEWELRY
@@ -50,7 +50,7 @@ function TypingDots() {
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          className="w-1.5 h-1.5 rounded-full bg-[#B5522A]"
+          className="w-1.5 h-1.5 rounded-full bg-tanjo-accent"
           style={{ animation: `typing-dot 1.4s ease-in-out ${i * 0.2}s infinite` }}
         />
       ))}
@@ -83,7 +83,7 @@ function ConceptImage({ url, index }: { url: string; index: number }) {
         <img
           src={url}
           alt={`Conceito ${index + 1}`}
-          className="block max-w-full border border-[#B5522A]/20"
+          className="block max-w-full border border-tanjo-accent/20"
           loading="lazy"
         />
         <div
@@ -96,7 +96,7 @@ function ConceptImage({ url, index }: { url: string; index: number }) {
       </div>
       <button
         onClick={handleDownload}
-        className="inline-flex items-center gap-1.5 text-[#B5522A]/80 hover:text-[#B5522A] text-[11px] tracking-widest uppercase font-light transition-colors"
+        className="inline-flex items-center gap-1.5 text-tanjo-accent/80 hover:text-tanjo-accent-bright text-[11px] tracking-widest uppercase font-light transition-colors"
       >
         <Download className="w-3 h-3" />
         Baixar conceito
@@ -118,30 +118,30 @@ function MessageBubble({ msg }: { msg: Message }) {
     >
       {/* Avatar */}
       {!isUser && (
-        <div className="w-8 h-8 rounded-full bg-[#1a1a1a] border border-[#B5522A]/30 flex items-center justify-center flex-shrink-0 mt-1">
-          <Diamond className="w-3.5 h-3.5 text-[#B5522A]" />
+        <div className="w-8 h-8 rounded-full bg-tanjo-bg-overlay border border-tanjo-accent/30 flex items-center justify-center flex-shrink-0 mt-1">
+          <Diamond className="w-3.5 h-3.5 text-tanjo-accent" />
         </div>
       )}
 
       <div className={`max-w-[75%] flex flex-col gap-2 ${isUser ? "items-end" : "items-start"}`}>
         {/* Sender label */}
         {!isUser && (
-          <span className="text-[#B5522A] text-[10px] tracking-widest uppercase font-light px-1">
+          <span className="text-tanjo-accent text-[10px] tracking-widest uppercase font-light px-1">
             Danya AI · Diretora Criativa
           </span>
         )}
 
         {/* Text bubble */}
         {msg.isLoading ? (
-          <div className="bg-[#141414] border border-[#B5522A]/10 rounded-sm">
+          <div className="bg-tanjo-bg-overlay border border-tanjo-accent/10 rounded-sm">
             <TypingDots />
           </div>
         ) : msg.content ? (
           <div
             className={`px-5 py-4 text-sm font-light leading-relaxed tracking-wide ${
               isUser
-                ? "bg-[#B5522A]/20 border border-[#B5522A]/30 text-white/90 rounded-sm"
-                : "bg-[#141414] border border-white/5 text-white/80 rounded-sm"
+                ? "bg-tanjo-accent/20 border border-tanjo-accent/30 text-white/90 rounded-sm"
+                : "bg-tanjo-bg-overlay border border-white/5 text-white/80 rounded-sm"
             }`}
           >
             {msg.content}
@@ -171,7 +171,7 @@ function ImageCounter({ count }: { count: number }) {
           <div
             key={i}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i < count ? "bg-[#B5522A]" : "bg-white/10"
+              i < count ? "bg-tanjo-accent-bright" : "bg-white/10"
             }`}
           />
         ))}
@@ -360,16 +360,16 @@ export default function DanyaStudio() {
 
   if (!sessionToken) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-[#B5522A] animate-spin" />
+      <div className="min-h-screen bg-tanjo-bg-deep flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-tanjo-accent animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
+    <div className="min-h-screen bg-tanjo-bg-deep flex flex-col">
       {/* Header */}
-      <header className="border-b border-[#B5522A]/10 bg-[#0a0a0a]/95 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-tanjo-accent/10 bg-tanjo-bg-deep/95 backdrop-blur-md sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
             <button
@@ -384,7 +384,7 @@ export default function DanyaStudio() {
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2">
               <div
-                className="w-1.5 h-1.5 rounded-full bg-[#B5522A]"
+                className="w-1.5 h-1.5 rounded-full bg-tanjo-accent"
                 style={{ animation: "tk-pulse 1.4s ease-in-out infinite" }}
               />
               <span className="text-white/40 text-xs tracking-widest uppercase font-light">Danya AI · Online</span>
@@ -403,10 +403,10 @@ export default function DanyaStudio() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-16"
           >
-            <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border border-[#B5522A]/30 flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
-              <Diamond className="w-7 h-7 text-[#B5522A]" />
+            <div className="w-16 h-16 rounded-full bg-tanjo-bg-overlay border border-tanjo-accent/30 flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
+              <Diamond className="w-7 h-7 text-tanjo-accent" />
             </div>
-            <h2 className="text-white text-2xl font-extralight tracking-widest mb-3">Estúdio Danya AI</h2>
+            <h2 className="text-tanjo-text-primary text-2xl font-extralight tracking-widest mb-3">Estúdio Danya AI</h2>
             <p className="text-white/30 text-sm font-light tracking-wide">Iniciando sessão criativa...</p>
           </motion.div>
         )}
@@ -427,7 +427,7 @@ export default function DanyaStudio() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-4 p-4 border border-[#B5522A]/20 bg-[#0f0f0f] text-center"
+              className="mb-4 p-4 border border-tanjo-accent/20 bg-tanjo-bg-elevated text-center"
             >
               <p className="text-white/50 text-sm font-light">
                 Limite de renders atingido.{" "}
@@ -435,7 +435,7 @@ export default function DanyaStudio() {
                   href="https://wa.me/5511964220246"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#B5522A] hover:underline"
+                  className="text-tanjo-accent hover:underline"
                 >
                   Solicitar orçamento oficial →
                 </a>
@@ -443,7 +443,7 @@ export default function DanyaStudio() {
             </motion.div>
           )}
 
-          <div className="flex gap-3 items-end bg-[#111] border border-white/10 focus-within:border-[#B5522A]/40 transition-colors duration-300 p-3">
+          <div className="flex gap-3 items-end bg-tanjo-bg-elevated border border-white/10 focus-within:border-tanjo-accent/40 transition-colors duration-300 p-3">
             <textarea
               ref={inputRef}
               value={input}
@@ -452,7 +452,7 @@ export default function DanyaStudio() {
               placeholder="Descreva a joia que você imagina para a sua coleção..."
               rows={1}
               disabled={isBusy}
-              className="flex-1 bg-transparent text-white placeholder-white/20 text-sm font-light resize-none outline-none leading-relaxed tracking-wide disabled:opacity-50"
+              className="flex-1 bg-transparent text-tanjo-text-primary placeholder-white/20 text-sm font-light resize-none outline-none leading-relaxed tracking-wide disabled:opacity-50"
               style={{ maxHeight: "120px" }}
               onInput={(e) => {
                 const el = e.currentTarget;
@@ -463,12 +463,12 @@ export default function DanyaStudio() {
             <button
               onClick={handleSend}
               disabled={!input.trim() || isBusy}
-              className="w-10 h-10 bg-[#B5522A] hover:bg-[#9a4523] disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-200 flex-shrink-0 active:scale-95"
+              className="w-10 h-10 bg-tanjo-accent hover:bg-tanjo-accent-deep disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-200 flex-shrink-0 active:scale-95"
             >
               {isBusy ? (
-                <Loader2 className="w-4 h-4 text-white animate-spin" />
+                <Loader2 className="w-4 h-4 text-tanjo-text-primary animate-spin" />
               ) : (
-                <Send className="w-4 h-4 text-white" />
+                <Send className="w-4 h-4 text-tanjo-text-primary" />
               )}
             </button>
           </div>

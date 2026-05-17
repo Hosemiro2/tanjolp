@@ -78,8 +78,8 @@ function WireframeGem({ size = 200, rotY = 0, rotX = 0 }: { size?: number; rotY:
     >
       <defs>
         <radialGradient id="tk-gem-vert" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#B5522A" stopOpacity={0.9} />
-          <stop offset="100%" stopColor="#B5522A" stopOpacity={0} />
+          <stop offset="0%" stopColor="#B14F32" stopOpacity={0.9} />
+          <stop offset="100%" stopColor="#B14F32" stopOpacity={0} />
         </radialGradient>
       </defs>
 
@@ -93,7 +93,7 @@ function WireframeGem({ size = 200, rotY = 0, rotX = 0 }: { size?: number; rotY:
           <line
             key={e.key}
             x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-            stroke="#B5522A"
+            stroke="#B14F32"
             strokeOpacity={opacity}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
@@ -114,7 +114,7 @@ function WireframeGem({ size = 200, rotY = 0, rotX = 0 }: { size?: number; rotY:
 
       <circle
         cx={0} cy={0} r={3}
-        fill="#B5522A"
+        fill="#B14F32"
         style={{ animation: "tk-corepulse 2.4s ease-in-out infinite" }}
       />
     </svg>
@@ -158,9 +158,9 @@ function DataRail({ side, visible }: { side: "left" | "right"; visible: boolean 
         transition: "opacity 800ms cubic-bezier(0.23,1,0.32,1)",
         overflow: "hidden",
         maskImage:
-          "linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, #0F0F11 20%, #0F0F11 80%, transparent 100%)",
         WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, #0F0F11 20%, #0F0F11 80%, transparent 100%)",
       }}
     >
       <div
@@ -171,7 +171,7 @@ function DataRail({ side, visible }: { side: "left" | "right"; visible: boolean 
           [innerSide]: 18,
           width: 1,
           background:
-            "linear-gradient(to bottom, transparent, rgba(181,82,42,0.18) 30%, rgba(181,82,42,0.18) 70%, transparent)",
+            "linear-gradient(to bottom, transparent, rgba(177,79,50,0.18) 30%, rgba(177,79,50,0.18) 70%, transparent)",
         }}
       />
       {ticks.map((t) => (
@@ -182,7 +182,7 @@ function DataRail({ side, visible }: { side: "left" | "right"; visible: boolean 
             top: 0,
             [innerSide]: 24,
             fontSize: 9,
-            color: "rgba(181,82,42,0.45)",
+            color: "rgba(177,79,50,0.45)",
             fontFamily: "'Cinzel', serif",
             fontWeight: 300,
             letterSpacing: "0.15em",
@@ -249,7 +249,7 @@ export default function Atmosphere() {
           zIndex: 5,
           opacity: heroExit * 0.85,
           transition: "opacity 600ms cubic-bezier(0.23,1,0.32,1)",
-          filter: "drop-shadow(0 0 24px rgba(181,82,42,0.22))",
+          filter: "drop-shadow(0 0 24px rgba(177,79,50,0.22))",
         }}
       >
         <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>

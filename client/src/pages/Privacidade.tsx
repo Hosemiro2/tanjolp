@@ -19,18 +19,18 @@ export default function Privacidade() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-tanjo-bg-deep text-tanjo-text-primary">
       {/* Topo simples */}
       <header className="border-b border-white/5 px-6 md:px-12 py-6">
         <div className="container flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2 text-white/40 hover:text-white text-[11px] tracking-[0.22em] uppercase font-light transition-colors"
+            className="flex items-center gap-2 text-white/40 hover:text-tanjo-text-primary text-[11px] tracking-[0.22em] uppercase font-light transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Voltar
           </Link>
-          <span className="text-[#B5522A]/70 text-[10px] tracking-[0.4em] uppercase font-light">
+          <span className="text-tanjo-accent/70 text-[10px] tracking-[0.4em] uppercase font-light">
             TANJŌ Jewelry
           </span>
         </div>
@@ -38,12 +38,12 @@ export default function Privacidade() {
 
       <main className="container py-20 max-w-3xl">
         <div className="mb-16">
-          <span className="text-[#B5522A]/60 text-[10px] tracking-[0.4em] uppercase font-light">
+          <span className="text-tanjo-accent/60 text-[10px] tracking-[0.4em] uppercase font-light">
             Documento Institucional
           </span>
           <h1 className="text-4xl md:text-5xl font-extralight mt-4 mb-6 leading-tight">
             Política de
-            <span className="font-serif italic text-[#B5522A]"> Privacidade</span>
+            <span className="font-serif italic text-tanjo-accent"> Privacidade</span>
           </h1>
           <p className="text-white/40 font-light text-sm">
             Última atualização:{" "}
@@ -65,11 +65,11 @@ export default function Privacidade() {
 
           {/* 1. Controlador */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               1. Controlador dos Dados
             </h2>
             <p>O controlador responsável pelo tratamento dos seus dados pessoais é:</p>
-            <div className="mt-4 pl-4 border-l border-[#B5522A]/30 text-white/50 text-sm">
+            <div className="mt-4 pl-4 border-l border-tanjo-accent/30 text-white/50 text-sm">
               <div>
                 Nome empresarial: <span className="text-white/70">TANJŌ Jewelry</span>
               </div>
@@ -77,7 +77,7 @@ export default function Privacidade() {
                 E-mail de contato:{" "}
                 <a
                   href="mailto:comercial@tanjoo.com.br"
-                  className="text-[#B5522A]/80 hover:text-[#B5522A] transition-colors"
+                  className="text-tanjo-accent/80 hover:text-tanjo-accent-bright transition-colors"
                 >
                   comercial@tanjoo.com.br
                 </a>
@@ -90,7 +90,7 @@ export default function Privacidade() {
 
           {/* 2. Dados coletados */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               2. Quais Dados Coletamos
             </h2>
             <p className="mb-3">
@@ -110,7 +110,7 @@ export default function Privacidade() {
 
           {/* 3. Finalidades */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               3. Para Que Usamos os Dados
             </h2>
             <p className="mb-3">Seus dados são tratados exclusivamente para:</p>
@@ -125,7 +125,7 @@ export default function Privacidade() {
 
           {/* 4. Base legal */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">4. Base Legal</h2>
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">4. Base Legal</h2>
             <p>
               O tratamento dos seus dados é fundamentado em duas bases legais previstas na LGPD: o
               seu{" "}
@@ -138,7 +138,7 @@ export default function Privacidade() {
 
           {/* 5. Compartilhamento */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               5. Compartilhamento com Terceiros
             </h2>
             <p className="mb-3">
@@ -160,7 +160,7 @@ export default function Privacidade() {
 
           {/* 6. Retenção */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               6. Tempo de Armazenamento
             </h2>
             <p>
@@ -174,7 +174,7 @@ export default function Privacidade() {
 
           {/* 7. Direitos do titular */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               7. Seus Direitos
             </h2>
             <p className="mb-3">A LGPD garante a você, titular dos dados, os seguintes direitos:</p>
@@ -197,7 +197,7 @@ export default function Privacidade() {
 
           {/* 8. Segurança */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               8. Segurança da Informação
             </h2>
             <p>
@@ -210,14 +210,14 @@ export default function Privacidade() {
 
           {/* 9. Encarregado */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               9. Encarregado pelo Tratamento de Dados (DPO)
             </h2>
             <p>
               Para questões relacionadas à privacidade e proteção de dados, entre em contato com
               nosso encarregado:
             </p>
-            <div className="mt-4 pl-4 border-l border-[#B5522A]/30 text-white/50 text-sm">
+            <div className="mt-4 pl-4 border-l border-tanjo-accent/30 text-white/50 text-sm">
               <div>
                 Nome: <span className="text-white/70">[PREENCHER NOME DO ENCARREGADO]</span>
               </div>
@@ -225,7 +225,7 @@ export default function Privacidade() {
                 E-mail:{" "}
                 <a
                   href="mailto:comercial@tanjoo.com.br"
-                  className="text-[#B5522A]/80 hover:text-[#B5522A] transition-colors"
+                  className="text-tanjo-accent/80 hover:text-tanjo-accent-bright transition-colors"
                 >
                   comercial@tanjoo.com.br
                 </a>
@@ -235,7 +235,7 @@ export default function Privacidade() {
 
           {/* 10. Cookies */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               10. Cookies e Armazenamento Local
             </h2>
             <p>
@@ -247,7 +247,7 @@ export default function Privacidade() {
 
           {/* 11. Alterações */}
           <section>
-            <h2 className="text-white text-lg font-light tracking-wide mb-4 mt-12">
+            <h2 className="text-tanjo-text-primary text-lg font-light tracking-wide mb-4 mt-12">
               11. Alterações Nesta Política
             </h2>
             <p>
@@ -264,7 +264,7 @@ export default function Privacidade() {
               dados, entre em contato pelo e-mail{" "}
               <a
                 href="mailto:comercial@tanjoo.com.br"
-                className="text-[#B5522A]/80 hover:text-[#B5522A] transition-colors"
+                className="text-tanjo-accent/80 hover:text-tanjo-accent-bright transition-colors"
               >
                 comercial@tanjoo.com.br
               </a>
@@ -276,7 +276,7 @@ export default function Privacidade() {
         <div className="mt-20 pt-10 border-t border-white/5 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[#B5522A] hover:gap-3 text-[11px] tracking-[0.3em] uppercase font-light transition-all"
+            className="inline-flex items-center gap-2 text-tanjo-accent hover:gap-3 text-[11px] tracking-[0.3em] uppercase font-light transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar à página inicial

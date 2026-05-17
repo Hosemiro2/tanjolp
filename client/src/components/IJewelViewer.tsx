@@ -79,9 +79,9 @@ export function IJewelViewer({ modelUrl, poster, className, style }: IJewelViewe
           }
           if ("backgroundColor" in viewer.scene && viewer.scene.backgroundColor) {
             if (typeof viewer.scene.backgroundColor.set === "function") {
-              viewer.scene.backgroundColor.set("#0a0a0a");
+              viewer.scene.backgroundColor.set("#0F0F11");
             } else if (typeof viewer.scene.backgroundColor.setHex === "function") {
-              viewer.scene.backgroundColor.setHex(0x0a0a0a);
+              viewer.scene.backgroundColor.setHex(0x0f0f11);
             }
           }
           if ("backgroundIntensity" in viewer.scene) {
