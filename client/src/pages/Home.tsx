@@ -3,7 +3,8 @@ import { motion, useInView } from "framer-motion";
 import { Diamond, Sparkles, Shield, ChevronDown, ArrowRight, Star, Gem, Zap } from "lucide-react";
 import LeadForm from "@/components/LeadForm";
 import Atmosphere from "@/components/Atmosphere";
-import { IJewelViewer } from "@/components/IJewelViewer";
+import { ProjetosReaisCarousel } from "@/components/ProjetosReaisCarousel";
+import { PROJETOS_REAIS } from "@/data/projetosReais";
 
 // ─── Scroll hook ──────────────────────────────────────────────────────────────
 function useScrollY() {
@@ -495,22 +496,6 @@ function ProcessoSection() {
 
 // ─── Studio Section ───────────────────────────────────────────────────────────
 function StudioSection() {
-  const projects = [
-    {
-      id: "marquise-01",
-      tag: "Projeto Real · Design 3D Tanjō",
-      name: "Anel Marquise Solitário",
-      material: "Ouro 18k bicolor · diamante marquise central + pavé",
-      images: {
-        frontal: "/portfolio/marquise-01-frontal.jpg",
-        perspective: "/portfolio/marquise-01-perspectiva.jpg",
-      },
-      viewer3d_glb: "https://bee.transfr.one/6a048316-17/model.glb",
-      disclaimer: "Peça real · modelada pela equipe de design 3D TANJŌ · pronta para fundição em ouro 18k",
-    },
-  ];
-  const project = projects[0];
-
   return (
     <section id="studio" className="pt-6 lg:pt-8 pb-12 lg:pb-16 bg-tanjo-bg-deep border-t border-white/4 relative overflow-hidden">
       <div
@@ -535,40 +520,11 @@ function StudioSection() {
 
         {/* Grid: Projeto + Formulário */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto">
-          {/* Coluna esquerda: projeto exclusivo */}
+          {/* Coluna esquerda: projetos reais (carousel) */}
           <FadeIn delay={0.15} className="h-full">
             <div className="flex flex-col h-full">
-              {/* 3D viewer único, proporção controlada */}
-              <div
-                className="aspect-square max-h-[420px] bg-black/30 max-md:bg-black/55 border border-tanjo-accent/20 max-md:border-tanjo-accent/45 rounded overflow-hidden relative"
-                style={{ boxShadow: "inset 0 0 40px 10px rgba(0,0,0,0.3)" }}
-              >
-                <div className="absolute top-3 left-3 z-20 px-3 py-1.5 rounded-sm bg-black/70 border border-tanjo-accent/40 backdrop-blur-sm pointer-events-none">
-                  <span className="text-[10px] tracking-[0.25em] uppercase font-light text-tanjo-accent/90">
-                    ● Projeto Real · Design 3D Tanjō
-                  </span>
-                </div>
-                <IJewelViewer
-                  modelUrl={project.viewer3d_glb}
-                  poster={project.images.frontal}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
-
-              {/* Caption compacto */}
-              <div className="mt-4">
-                <h3 className="text-white/90 text-base font-light">{project.name}</h3>
-                <p className="text-white/60 max-md:text-white/80 text-xs tracking-wide mt-1">{project.material}</p>
-                <p className="text-white/45 max-md:text-white/72 text-[11px] italic mt-2 leading-relaxed">{project.disclaimer}</p>
-              </div>
-
-              {/* Spacer flexível */}
+              <ProjetosReaisCarousel projetos={PROJETOS_REAIS} />
               <div className="flex-grow min-h-[16px]" />
-
-              {/* Tag rodapé alinhada com a direita */}
-              <div className="text-center text-tanjo-accent/70 max-md:text-tanjo-accent/95 text-[10px] tracking-[0.3em] uppercase font-light pt-3">
-                ● {project.tag}
-              </div>
             </div>
           </FadeIn>
 
